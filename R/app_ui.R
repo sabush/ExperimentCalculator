@@ -10,7 +10,15 @@ app_ui <- function(request) {
     golem_add_external_resources(),
     # Your application UI logic
     fluidPage(
-      h1("ExperimentCalculator")
+      h1("Experiment Calculator"),
+
+      mod_power_binary_ui("power_binary_1"),
+      mod_power_normal_ui("power_normal_1"),
+      mod_signif_binary_ui("signif_binary_1"),
+      mod_signif_normal_ui("signif_normal_1"),
+      mod_sample_ratio_ui("sample_ratio_1"),
+      actionButton("browser", "browser"),
+      tags$script("$('#browser').hide();")
     )
   )
 }

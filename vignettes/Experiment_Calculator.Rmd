@@ -1,0 +1,19 @@
+---
+title: "Experiment_Calculator"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Experiment_Calculator}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(ExperimentCalculator)
+```

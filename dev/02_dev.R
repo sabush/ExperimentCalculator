@@ -16,16 +16,6 @@
 ## Dependencies ----
 ## Amend DESCRIPTION with dependencies read from package code parsing
 ## install.packages('attachment') # if needed.
-usethis::use_package("plotly")
-usethis::use_package("shinyBS")
-usethis::use_package("shinyWidgets")
-usethis::use_package("fresh")
-usethis::use_package("rhandsontable")
-usethis::use_package("tibble")
-usethis::use_package("ggplot2")
-usethis::use_package("dplyr")
-usethis::use_package("pwr")
-usethis::use_package("scales")
 attachment::att_amend_desc()
 
 ## Add modules ----

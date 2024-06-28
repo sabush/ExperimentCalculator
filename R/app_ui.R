@@ -4,19 +4,62 @@
 #'     DO NOT REMOVE.
 #' @import shiny
 #' @noRd
+
+library(plotly)
+library(shiny)
+library(shinyBS)
+library(shinyWidgets)
+library(fresh)
+library(rhandsontable)
+library(tibble)
+library(ggplot2)
+library(dplyr)
+library(pwr)
+library(scales)
+
 app_ui <- function(request) {
   tagList(
     # Leave this function for adding external resources
     golem_add_external_resources(),
     # Your application UI logic
-    fluidPage(
-      h1("Experiment Calculator"),
 
-      mod_power_binary_ui("power_binary_1"),
-      mod_power_normal_ui("power_normal_1"),
-      mod_signif_binary_ui("signif_binary_1"),
-      mod_signif_normal_ui("signif_normal_1"),
-      mod_sample_ratio_ui("sample_ratio_1"),
+    navbarPage(
+      title = "Power and Significance Calculator",
+      header = tagList(
+        use_theme(
+          create_theme(
+            theme = 'sandstone',
+            bs_vars_global(
+              text_color = "#000"
+            )
+          )
+        )
+      ),
+      tabPanel(
+        title = "Power - Binary Outcome",
+        mod_power_binary_ui("power_binary_1")
+      ),
+
+      tabPanel(
+        title = "Power - Normal Outcome",
+        mod_power_normal_ui("power_normal_1")
+      ),
+
+      tabPanel(
+        title = "Significance - Binary Outcome",
+        mod_signif_binary_ui("signif_binary_1")
+      ),
+
+      tabPanel(
+        title = "Significance - Normal Outcome",
+        mod_signif_normal_ui("signif_normal_1")
+      ),
+
+      tabPanel(
+        title = "Sample ratio mismatch test",
+        mod_sample_ratio_ui("sample_ratio_1")
+      ),
+
       actionButton("browser", "browser"),
       tags$script("$('#browser').hide();")
     )

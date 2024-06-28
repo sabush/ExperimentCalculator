@@ -12,3 +12,8 @@ $run_dev.*
 ^CODE_OF_CONDUCT\.md$
 ^doc$
 ^Meta$
+^codecov\.yml$
+^\.github$
+^\.circleci$
+^\.circleci/config\.yml$
+^\.gitlab-ci\.yml$

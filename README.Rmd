@@ -13,20 +13,23 @@ knitr::opts_chunk$set(
 )
 ```
 
-# ExperimentCalculator
+# Experiment Calculator
 
 <!-- badges: start -->
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+[![Codecov test coverage](https://codecov.io/gh/sabush/ExperimentCalculator/branch/master/graph/badge.svg)](https://app.codecov.io/gh/sabush/ExperimentCalculator?branch=master)
+[![R-CMD-check](https://github.com/sabush/ExperimentCalculator/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/sabush/ExperimentCalculator/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
-The goal of ExperimentCalculator is to ...
+The goal of Experiment Calculator is to provide a simple calculator to plan, analyse and diagnose simple experiments.
 
 ## Installation
 
 You can install the development version of ExperimentCalculator like so:
 
-``` r
-# FILL THIS IN! HOW CAN PEOPLE INSTALL YOUR DEV PACKAGE?
+```{r install}
+devtools::install_git('https://github.com/sabush/ExperimentCalculator.git')
+
 ```
 
 ## Example

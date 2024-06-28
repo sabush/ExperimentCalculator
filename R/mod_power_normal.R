@@ -13,12 +13,25 @@ mod_power_normal_ui <- function(id){
     fluidPage(
       column(
         width = 4,
+        radioButtons(ns("calc_type"), "What do you want to calculate",
+                     choiceNames = c("Minimum Sample Size", "Minimum Detectible Effect"),
+                     choiceValues = c("mss", "mde")),
 
-        p(HTML('<b>Summary data for each experiment group</b>')),
+        # Specify sample size if MDE being calculated
+        conditionalPanel(condition = "input.calc_type == 'mde'",
+                         numericInput(ns('sample_size'), 'Total Available Sample Size', 10000),
+                         ns = ns,
+                         bsTooltip(ns('sample_size'),
+                                   'How many observations are available across all groups in the experiment?'),
+        ),
+
+        numericInputIcon(ns('base_mean'), 'Mean response in the baseline group', 5),
+        numericInputIcon(ns('base_sd'), 'Standard deviation in the baseline group', 8),
+
+        p(HTML('<b>Sample split across experiment groups</b>')),
         p(HTML('To add additional groups, right click on the table and select <i>Insert Row Below</i>')),
-        p(HTML('<i>label</i>: Group label for graphs, <br><i>sample_size</i>: Number of observations in group, <br><i>num_success</i>: Number of successful outcomes in group')),
         br(),
-        rHandsontableOutput(ns('group_summary_hot')),
+        rHandsontableOutput(ns('sample_split_hot')),
         br(),
         br(),
         radioButtons(ns("effect_type"), "Effect Type to be used",
@@ -26,6 +39,23 @@ mod_power_normal_ui <- function(id){
                      choiceValues = c("abs", "rel")),
         bsTooltip(ns('effect_type'),
                   'An absolute effect is defined by the difference between the proportions in each group (new - old), where the relative effect is the percentage change in the outcome ((new - old)/old)'),
+
+        # Specify MDE if sample size being calculated - absolute effect
+        conditionalPanel(condition = "input.calc_type == 'mss' & input.effect_type == 'abs'",
+                         numericInputIcon(ns('min_effect_abs'), 'Minimum Detectible Effect', 2),
+                         ns = ns,
+                         bsTooltip(ns('min_effect_abs'),
+                                   'What is the smallest absolute effect size that would be considered meaningful for the experiments? Note that the smaller this effect, the larger the sample size will be.'),
+        ),
+
+        # Specify MDE if sample size being calculated - absolute effect
+        conditionalPanel(condition = "input.calc_type == 'mss' & input.effect_type == 'rel'",
+                         numericInputIcon(ns('min_effect_rel'), 'Minimum Detectible Effect', 5,
+                                          icon = list(NULL, icon("percent"))),
+                         ns = ns,
+                         bsTooltip(ns('min_effect_rel'),
+                                   'What is the smallest relative effect size that would be considered meaningful for the experiments? Note that the smaller this effect, the larger the sample size will be.'),
+        ),
 
         numericInputIcon(ns("sig_lvl"), "Level of Significance", 5, 1, 20, 1,
                          icon = list(NULL, icon("percent"))),
@@ -41,19 +71,12 @@ mod_power_normal_ui <- function(id){
 
       column(
         width = 8,
-        p(HTML('<b>Results</b>')),
         uiOutput(ns('text_string')),
         br(),
-        br(),
-        p(HTML('<b>Plots</b>')),
-        br(),
-        plotlyOutput(ns('diff_plot')),
-        br(),
-        br(),
-        plotlyOutput(ns('group_plot'))
+        selectizeInput(ns('treatment_pair'), 'Comparison for Power Curve', choices = NULL),
+        plotlyOutput(ns('power_curve'))
       )
-    ))
-}
+    )}
 
 #' power_normal Server Functions
 #'
@@ -62,45 +85,68 @@ mod_power_normal_server <- function(id){
   moduleServer( id, function(input, output, session){
     ns <- session$ns
     values <- reactiveValues(
-      reset_summ_table = 0
+      reset_split_table = 0
     )
 
-    # Create a reactive for the summary table
-    sample_summ <- reactive({
+    # Create a reactive for the sample proportions table
+    sample_split <- reactive({
 
       split_DF <- NULL
-      if(!is.null(input$group_summary_hot)){ # If the table is populated, update
-        summ_DF <- hot_to_r(input$group_summary_hot)
-        values[['summ_DF']] <- summ_DF
-      } else if (!is.null(isolate(values$summ_DF))) { # otherwise use the DF in values.
-        summ_DF <- isolate(values$summ_DF)
+      if(!is.null(input$sample_split_hot)){ # If the table is populated, update
+        split_DF <- hot_to_r(input$sample_split_hot)
+        values[['split_DF']] <- split_DF
+      } else if (!is.null(isolate(values$split_DF))) { # otherwise use the DF in values.
+        split_DF <- isolate(values$split_DF)
       } else { # otherwise initialise the table
-        summ_DF <- data.frame(label = c('Group 1', 'Group 2'),
-                              sample_size = c(1000, 1000),
-                              num_success = c(40, 50))
-        values[['summ_DF']] <- summ_DF
-        values$reset_summ_table <- 1
+        split_DF <- data.frame(traffic_propotions = c(0.5, 0.5))
+        values[['split_DF']] <- split_DF
+        values$reset_split_table <- 1
       }
       split_DF
     }) %>% debounce(1000)
 
-    # Format the summary table
-    output$group_summary_hot <- renderRHandsontable({
+    # Format the sample proportions table
+    output$sample_split_hot <- renderRHandsontable({
 
-      if (isolate(values$reset_summ_table) == 1) {
-        summ_DF <- values$summ_DF
+      if (isolate(values$reset_split_table) == 1) {
+        split_DF <- values$split_DF
       } else {
-        summ_DF <- sample_summ()
+        split_DF <- sample_split()
       }
 
-      if(!is.null(summ_DF)){
-        rhandsontable(summ_DF, width = 300) %>%
-          hot_validate_numeric(col = 'sample_size', min = 1) %>%
-          hot_validate_numeric(col = 'num_success', min = 1) %>%
-          hot_col('sample_size', format = "0") %>%
-          hot_col('num_success', format = "0") %>%
+      if(!is.null(split_DF)){
+        rhandsontable(split_DF, width = 300) %>%
+          hot_validate_numeric(col = 'traffic_propotions',
+                               min = 0, max = 1) %>%
+          hot_col('traffic_propotions', format = "0.0%") %>%
           hot_context_menu(allowColEdit = FALSE)
       }
+    })
+
+    # Create a set of pairs of treatments for power curves
+    observe({
+      prop_table <- values$split_DF
+      prop_list <- prop_table$traffic_propotions
+
+      tmt_pair_list <- c()
+      if(input$comparisons == 'first'){
+        for(tmt2 in 2:(length(prop_list))){
+          new_string <- paste0(1, " v ", tmt2)
+          tmt_pair_list <- append(tmt_pair_list, new_string)
+        }
+      } else {
+        for(tmt1 in 1:(length(prop_list) - 1)){
+          for(tmt2 in (tmt1 + 1):(length(prop_list))){
+            new_string <- paste0(tmt1, " v ", tmt2)
+            tmt_pair_list <- append(tmt_pair_list, new_string)
+          }
+        }
+      }
+
+      updateSelectizeInput(session,
+                           'treatment_pair',
+                           'Comparison for Power Curve',
+                           choices = tmt_pair_list)
     })
 
 
@@ -109,119 +155,145 @@ mod_power_normal_server <- function(id){
 
       # Validations
       validate(
-        need(!anyNA(values$summ_DF$label), 'Group labels should be defined for each group'),
-        need(min(values$summ_DF$sample_size) > 5, 'The sample size for each group must be greater than 5'),
-        need(min(values$summ_DF$num_success) > 5, 'The number of successes for each group must be greater than 5'),
-        need(all(values$summ_DF$num_success <= values$summ_DF$sample_size), 'The number of successes for each group must be no greater than the sample size'),
+        need(!anyNA(values$values$split_DF), 'Sample proportions should be defined for each group.'),
+        need(sum(values$summ_DF$sample_size) == 1, 'The sample proportions should add to 100%.'),
+        need(min(values$summ_DF$sample_size) > 0, 'The sample proportions for each group must be greater than 0.'),
         need(!is.na(input$sig_lvl), 'The significance level needs to be defined'),
         need(input$sig_lvl > 0, 'The significance level needs to be positive'),
         need(input$sig_lvl <= 20, 'The significance level needs to be less than 20%'),
+        need(input$pwr_lvl < 100, 'The power level needs to be less than 100%'),
+        need(input$pwr_lvl >= 60, 'The power level needs to be at least 60%, and ideally greater than 80%'),
         need(!is.na(input$correction), ''),
         need(!is.na(input$comparisons), '')
       )
 
-
       # Construct the text string with output
 
-      summ_table <- values$summ_DF
+      # Convert proportion table into proportions
+      prop_table <- values$split_DF
+      prop_list <- prop_table$traffic_propotions
+
+      pwr_lvl <- input$pwr_lvl / 100
+      min_effect_rel <- input$min_effect_rel / 100
       sig_lvl <- input$sig_lvl / 100
 
       # Apply p-value corrections
       if(input$correction == 'bon'){
         if(input$comparisons == 'first'){
-          sig_corr = sig_lvl / (nrow(summ_table) - 1)
+          sig_corr = sig_lvl / (length(prop_list) - 1)
         } else {
-          sig_corr = sig_lvl / (nrow(summ_table) * (nrow(summ_table) - 1) / 2)
+          sig_corr = sig_lvl / (length(prop_list) * (length(prop_list) - 1) / 2)
         }
       } else {
         sig_corr = sig_lvl
       }
 
       # Return a different string based on input
-      text_string <- construct_text_binary(
-        summ_table = summ_table,
-        eff_type = input$effect_type,
-        comparisons = input$comparisons,
-        sig = sig_corr)
+      if(input$calc_type == 'mss'){
+        if(input$effect_type == 'abs'){
+          text_string <- construct_text_pow_norm_ss(base_mean = input$base_mean,
+                                                    base_sd = input$base_sd,
+                                                    samp_prop = prop_list,
+                                                    mde = input$min_effect_abs,
+                                                    eff_type = input$effect_type,
+                                                    sig = sig_corr,
+                                                    pow = pwr_lvl,
+                                                    pairs = input$comparisons)
+        } else {
+          text_string <- construct_text_pow_norm_ss(base_mean = input$base_mean,
+                                                    base_sd = input$base_sd,
+                                                    samp_prop = prop_list,
+                                                    mde = min_effect_rel,
+                                                    eff_type = input$effect_type,
+                                                    sig = sig_corr,
+                                                    pow = pwr_lvl,
+                                                    pairs = input$comparisons)
+        }
+      } else{
+        text_string <- construct_text_pow_norm_mde(base_mean = input$base_mean,
+                                                   base_sd = input$base_sd,
+                                                   samp_prop = prop_list,
+                                                   tot_ss = input$sample_size,
+                                                   eff_type = input$effect_type,
+                                                   sig = sig_corr,
+                                                   pow = pwr_lvl,
+                                                   pairs = input$comparisons)
+      }
 
       # Return the text string
       text_string
     })
 
-    # Plot confidence intervals for differences
+    # Construct a Power Curve
+    output$power_curve <- renderPlotly({
 
-    output$diff_plot <- renderPlotly({
-      summ_table <- values$summ_DF
+      # Validations
       validate(
-        need(!anyNA(values$summ_DF$label), ''),
-        need(min(values$summ_DF$sample_size) > 5, ''),
-        need(min(values$summ_DF$num_success) > 5, ''),
-        need(all(values$summ_DF$num_success <= values$summ_DF$sample_size), ''),
+        need(!anyNA(values$values$split_DF), ''),
+        need(sum(values$summ_DF$sample_size) == 1, ''),
+        need(min(values$summ_DF$sample_size) > 0, ''),
         need(!is.na(input$sig_lvl), ''),
         need(input$sig_lvl > 0, ''),
         need(input$sig_lvl <= 20, ''),
+        need(input$pwr_lvl < 100, ''),
+        need(input$pwr_lvl >= 60, ''),
         need(!is.na(input$correction), ''),
-        need(!is.na(input$comparisons), '')
+        need(!is.na(input$comparisons), ''),
+        need(!is.na(input$treatment_pair), ''),
+        need(input$treatment_pair != '', '')
       )
 
+      # Convert proportion table into proportions
+      prop_table <- values$split_DF
+      prop_list <- prop_table$traffic_propotions
+
+      pwr_lvl <- input$pwr_lvl / 100
+      min_effect_rel <- input$min_effect_rel / 100
       sig_lvl <- input$sig_lvl / 100
 
       # Apply p-value corrections
       if(input$correction == 'bon'){
         if(input$comparisons == 'first'){
-          sig_corr = sig_lvl / (nrow(summ_table) - 1)
+          sig_corr = sig_lvl / (length(prop_list) - 1)
         } else {
-          sig_corr = sig_lvl / (nrow(summ_table) * (nrow(summ_table) - 1) / 2)
+          sig_corr = sig_lvl / (length(prop_list) * (length(prop_list) - 1) / 2)
         }
       } else {
         sig_corr = sig_lvl
       }
 
-      construct_diff_plot_binary(
-        summ_table = summ_table,
-        eff_type = input$effect_type,
-        comparisons = input$comparisons,
-        sig = sig_corr,
-        correction = input$correction)
-
-    })
-
-
-    # Plot confidence intervals for each group
-
-    output$group_plot <- renderPlotly({
-      summ_table <- values$summ_DF
-      validate(
-        need(!anyNA(values$summ_DF$label), ''),
-        need(min(values$summ_DF$sample_size) > 5, ''),
-        need(min(values$summ_DF$num_success) > 5, ''),
-        need(all(values$summ_DF$num_success <= values$summ_DF$sample_size), ''),
-        need(!is.na(input$sig_lvl), ''),
-        need(input$sig_lvl > 0, ''),
-        need(input$sig_lvl <= 20, ''),
-        need(!is.na(input$correction), ''),
-        need(!is.na(input$comparisons), '')
-      )
-
-      sig_lvl <- input$sig_lvl / 100
-
-      # Apply p-value corrections
-      if(input$correction == 'bon'){
-        if(input$comparisons == 'first'){
-          sig_corr = sig_lvl / (nrow(summ_table) - 1)
+      if(input$calc_type == 'mss'){
+        if(input$effect_type == 'abs'){
+          construct_power_curve_norm_ss(base_mean = input$base_mean,
+                                        base_sd = input$base_sd,
+                                        samp_prop = prop_list,
+                                        mde = input$min_effect_abs,
+                                        eff_type = input$effect_type,
+                                        sig = sig_corr,
+                                        pow = pwr_lvl,
+                                        comp = input$treatment_pair)
         } else {
-          sig_corr = sig_lvl / (nrow(summ_table) * (nrow(summ_table) - 1) / 2)
+          construct_power_curve_norm_ss(base_mean = input$base_mean,
+                                        base_sd = input$base_sd,
+                                        samp_prop = prop_list,
+                                        mde = min_effect_rel,
+                                        eff_type = input$effect_type,
+                                        sig = sig_corr,
+                                        pow = pwr_lvl,
+                                        comp = input$treatment_pair)
         }
       } else {
-        sig_corr = sig_lvl
+        construct_power_curve_norm_mde(base_mean = input$base_mean,
+                                       base_sd = input$base_sd,
+                                       samp_prop = prop_list,
+                                       tot_ss = input$sample_size,
+                                       eff_type = input$effect_type,
+                                       sig = sig_corr,
+                                       pow = pwr_lvl,
+                                       comp = input$treatment_pair)
       }
 
-      construct_group_plot_binary(
-        summ_table = summ_table,
-        eff_type = input$effect_type,
-        sig = sig_corr,
-        correction = input$correction)
-
     })
-  })
-}
+
+  }
+  )}

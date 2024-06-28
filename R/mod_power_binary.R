@@ -158,6 +158,20 @@ mod_power_binary_server <- function(id){
     # Return text output
     output$text_string <- renderUI({
 
+      # Validations
+      validate(
+        need(!anyNA(values$values$split_DF), 'Sample proportions should be defined for each group.'),
+        need(sum(values$summ_DF$sample_size) == 1, 'The sample proportions should add to 100%.'),
+        need(min(values$summ_DF$sample_size) > 0, 'The sample proportions for each group must be greater than 0.'),
+        need(!is.na(input$sig_lvl), 'The significance level needs to be defined'),
+        need(input$sig_lvl > 0, 'The significance level needs to be positive'),
+        need(input$sig_lvl <= 20, 'The significance level needs to be less than 20%'),
+        need(input$pwr_lvl < 100, 'The power level needs to be less than 100%'),
+        need(input$pwr_lvl >= 60, 'The power level needs to be at least 60%, and ideally greater than 80%'),
+        need(!is.na(input$correction), ''),
+        need(!is.na(input$comparisons), '')
+      )
+
       # Construct the text string with output
 
       # Convert proportion table into proportions
@@ -216,14 +230,26 @@ mod_power_binary_server <- function(id){
 
     # Construct a Power Curve
     output$power_curve <- renderPlotly({
-      # Convert proportion table into proportions
-      prop_table <- values$split_DF
-      prop_list <- prop_table$traffic_propotions
+
+      # Validations
       validate(
-        need(!is.na(prop_list), ''),
+        need(!anyNA(values$values$split_DF), ''),
+        need(sum(values$summ_DF$sample_size) == 1, ''),
+        need(min(values$summ_DF$sample_size) > 0, ''),
+        need(!is.na(input$sig_lvl), ''),
+        need(input$sig_lvl > 0, ''),
+        need(input$sig_lvl <= 20, ''),
+        need(input$pwr_lvl < 100, ''),
+        need(input$pwr_lvl >= 60, ''),
+        need(!is.na(input$correction), ''),
+        need(!is.na(input$comparisons), ''),
         need(!is.na(input$treatment_pair), ''),
         need(input$treatment_pair != '', '')
       )
+
+      # Convert proportion table into proportions
+      prop_table <- values$split_DF
+      prop_list <- prop_table$traffic_propotions
 
       prop_base <- input$prop_base / 100
       pwr_lvl <- input$pwr_lvl / 100

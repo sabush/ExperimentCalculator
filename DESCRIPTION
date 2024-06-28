@@ -10,6 +10,7 @@ License: MIT + file LICENSE
 Imports: 
     config (>= 0.3.2),
     dplyr,
+    forcats,
     fresh,
     ggplot2,
     golem (>= 0.4.1),

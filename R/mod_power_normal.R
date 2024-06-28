@@ -76,7 +76,7 @@ mod_power_normal_ui <- function(id){
         selectizeInput(ns('treatment_pair'), 'Comparison for Power Curve', choices = NULL),
         plotlyOutput(ns('power_curve'))
       )
-    )}
+    ))}
 
 #' power_normal Server Functions
 #'
@@ -155,9 +155,9 @@ mod_power_normal_server <- function(id){
 
       # Validations
       validate(
-        need(!anyNA(values$values$split_DF), 'Sample proportions should be defined for each group.'),
-        need(sum(values$summ_DF$sample_size) == 1, 'The sample proportions should add to 100%.'),
-        need(min(values$summ_DF$sample_size) > 0, 'The sample proportions for each group must be greater than 0.'),
+        need(!anyNA(values$split_DF$traffic_propotions), 'Sample proportions should be defined for each group.'),
+        need(sum(values$split_DF$traffic_propotions) == 1, 'The sample proportions should add to 100%.'),
+        need(min(values$split_DF$traffic_propotions) > 0, 'The sample proportions for each group must be greater than 0.'),
         need(!is.na(input$sig_lvl), 'The significance level needs to be defined'),
         need(input$sig_lvl > 0, 'The significance level needs to be positive'),
         need(input$sig_lvl <= 20, 'The significance level needs to be less than 20%'),
@@ -229,9 +229,9 @@ mod_power_normal_server <- function(id){
 
       # Validations
       validate(
-        need(!anyNA(values$values$split_DF), ''),
-        need(sum(values$summ_DF$sample_size) == 1, ''),
-        need(min(values$summ_DF$sample_size) > 0, ''),
+        need(!anyNA(values$split_DF$traffic_propotions), ''),
+        need(sum(values$split_DF$traffic_propotions) == 1, ''),
+        need(min(values$split_DF$traffic_propotions) > 0, ''),
         need(!is.na(input$sig_lvl), ''),
         need(input$sig_lvl > 0, ''),
         need(input$sig_lvl <= 20, ''),

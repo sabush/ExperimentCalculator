@@ -57,9 +57,10 @@ devtools::build_vignettes()
 
 ## Code Coverage----
 ## Set the code coverage service ("codecov" or "coveralls")
-usethis::use_coverage()
+usethis::use_coverage("codecov")
 
 # Create a summary readme for the testthat subdirectory
+remotes::install_github('yonicd/covrpage')
 covrpage::covrpage()
 
 ## CI ----
@@ -81,6 +82,11 @@ usethis::use_github_action_pr_commands()
 
 # GitLab CI
 usethis::use_gitlab_ci()
+
+# Circle CI
+usethis::use_circleci()
+usethis::use_circleci_badge()
+
 
 # You're now set! ----
 # go to dev/03_deploy.R

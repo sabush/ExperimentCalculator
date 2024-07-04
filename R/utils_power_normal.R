@@ -323,16 +323,20 @@ construct_power_curve_norm_mde <-
       x_txt <- 'Effect Size (Absolute)'
       plot <- power_table %>%
         ggplot(aes(x = x, y = power)) + geom_line(colour = colour_vec[1]) +
-        geom_segment(aes(x = calc_val, xend = calc_val, y = 0, yend = pow), colour = colour_vec[2]) +
-        geom_segment(aes(x = 0, xend = calc_val, y = pow, yend = pow), colour = colour_vec[2]) +
+        annotate("segment", x = calc_val, xend = calc_val, y = 0, yend = pow, colour = colour_vec[2]) +
+        annotate("segment", x = 0, xend = calc_val, y = pow, yend = pow, colour = colour_vec[2]) +
+        # geom_segment(aes(x = calc_val, xend = calc_val, y = 0, yend = pow), colour = colour_vec[2]) +
+        # geom_segment(aes(x = 0, xend = calc_val, y = pow, yend = pow), colour = colour_vec[2]) +
         theme_classic(base_size = 14) + scale_y_continuous(labels = scales::percent) +
         labs(title = "Power Plot", x = x_txt, y = 'Power')
     } else if(eff_type == 'rel'){
       x_txt <- 'Effect Size (Relative)'
       plot <- power_table %>%
         ggplot(aes(x = x, y = power)) + geom_line(colour = colour_vec[1]) +
-        geom_segment(aes(x = calc_val, xend = calc_val, y = 0, yend = pow), colour = colour_vec[2]) +
-        geom_segment(aes(x = 0, xend = calc_val, y = pow, yend = pow), colour = colour_vec[2]) +
+        annotate("segment", x = calc_val, xend = calc_val, y = 0, yend = pow, colour = colour_vec[2]) +
+        annotate("segment", x = 0, xend = calc_val, y = pow, yend = pow, colour = colour_vec[2]) +
+        # geom_segment(aes(x = calc_val, xend = calc_val, y = 0, yend = pow), colour = colour_vec[2]) +
+        # geom_segment(aes(x = 0, xend = calc_val, y = pow, yend = pow), colour = colour_vec[2]) +
         theme_classic(base_size = 14) + scale_y_continuous(labels = scales::percent) +
         scale_x_continuous(labels = scales::percent) +
         labs(title = "Power Plot", x = x_txt, y = 'Power')

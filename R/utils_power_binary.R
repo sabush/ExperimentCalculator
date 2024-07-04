@@ -35,9 +35,14 @@ solve_power_bin_n <- function(samp_prop, base_resp, mde, eff_type, sig, pow){
   range_min <- ceiling(max(8 / samp_prop, 8 / (1 - samp_prop)))
   range_max <- 1000000000
 
-  # Return an error if the max will be exceeded\
+  # Return an error if the max will be exceeded
   if(pwr.2p2n.test(ES.h(prop1, prop2), range_max * samp_prop, range_max * (1 - samp_prop), sig)$power < 0.8){
     return("The required sample size exceeds 1,000,000,000")
+  }
+
+  # Return an error if the min not be met
+  if(pwr.2p2n.test(ES.h(prop1, prop2), range_min * samp_prop, range_min * (1 - samp_prop), sig)$power > 0.8){
+    return("The required sample size is less than 8")
   }
 
   # Apply solver
@@ -272,8 +277,10 @@ construct_power_curve_bin_ss <-
 
     plot <- power_table %>%
       ggplot(aes(x = x, y = power)) + geom_line(colour = colour_vec[1]) +
-      geom_segment(aes(x = calc_val, xend = calc_val, y = 0, yend = pow), colour = colour_vec[2]) +
-      geom_segment(aes(x = 0, xend = calc_val, y = pow, yend = pow), colour = colour_vec[2]) +
+      annotate("segment", x = calc_val, xend = calc_val, y = 0, yend = pow, colour = colour_vec[2]) +
+      annotate("segment", x = 0, xend = calc_val, y = pow, yend = pow, colour = colour_vec[2]) +
+      # geom_segment(aes(x = calc_val, xend = calc_val, y = 0, yend = pow), colour = colour_vec[2]) +
+      # geom_segment(aes(x = 0, xend = calc_val, y = pow, yend = pow), colour = colour_vec[2]) +
       theme_classic(base_size = 14) + scale_y_continuous(labels = scales::percent) +
       scale_x_continuous(labels = scales::comma) +
       labs(title = title_txt, x = 'Total Sample Size (All Groups)', y = 'Power')
@@ -317,8 +324,10 @@ construct_power_curve_bin_mde <-
 
     plot <- power_table %>%
       ggplot(aes(x = x, y = power)) + geom_line(colour = colour_vec[1]) +
-      geom_segment(aes(x = calc_val, xend = calc_val, y = 0, yend = pow), colour = colour_vec[2]) +
-      geom_segment(aes(x = 0, xend = calc_val, y = pow, yend = pow), colour = colour_vec[2]) +
+      annotate("segment", x = calc_val, xend = calc_val, y = 0, yend = pow, colour = colour_vec[2]) +
+      annotate("segment", x = 0, xend = calc_val, y = pow, yend = pow, colour = colour_vec[2]) +
+      # geom_segment(aes(x = calc_val, xend = calc_val, y = 0, yend = pow), colour = colour_vec[2]) +
+      # geom_segment(aes(x = 0, xend = calc_val, y = pow, yend = pow), colour = colour_vec[2]) +
       theme_classic(base_size = 14) + scale_y_continuous(labels = scales::percent) +
       scale_x_continuous(labels = scales::percent) +
       labs(title = "Power Plot", x = x_txt, y = 'Power')

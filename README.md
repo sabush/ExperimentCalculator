@@ -10,6 +10,8 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 [![Codecov test
 coverage](https://codecov.io/gh/sabush/ExperimentCalculator/branch/master/graph/badge.svg)](https://app.codecov.io/gh/sabush/ExperimentCalculator?branch=master)
 [![R-CMD-check](https://github.com/sabush/ExperimentCalculator/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/sabush/ExperimentCalculator/actions/workflows/R-CMD-check.yaml)
+[![CircleCI build
+status](https://circleci.com/gh/sabush/ExperimentCalculator.svg?style=svg)](https://circleci.com/gh/sabush/ExperimentCalculator)
 <!-- badges: end -->
 
 The goal of Experiment Calculator is to provide a simple calculator to
@@ -20,8 +22,9 @@ plan, analyse and diagnose simple experiments.
 You can install the development version of ExperimentCalculator like so:
 
 ``` r
-devtools::install_git('https://github.com/sabush/ExperimentCalculator.git')
-#> Skipping install of 'ExperimentCalculator' from a xgit remote, the SHA1 (af8f6854) has not changed since last install.
+devtools::install_github('sabush/ExperimentCalculator')
+#> Using GitHub PAT from the git credential store.
+#> Skipping install of 'ExperimentCalculator' from a github remote, the SHA1 (a6cd4f1d) has not changed since last install.
 #>   Use `force = TRUE` to force installation
 ```
 

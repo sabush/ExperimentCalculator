@@ -1,8 +1,3 @@
-test_that("multiplication works", {
-  expect_equal(2 * 2, 4)
-})
-
-
 test_that("correct confidence intervals - absolute difference", {
   expect_equal(pair_abs_diff_summary_normal(4, 5, 2, 2, 500, 500, 0.05)$UCI,
                5 - 4 +
@@ -75,16 +70,16 @@ test_that("correct point estimate - absolute difference", {
 })
 
 test_that("correct conclusion - absolute difference", {
-  expect_equal(pair_abs_diff_summary_normal(4, 5, 2, 2, 500, 500, 0.05)$point_est,
+  expect_equal(pair_abs_diff_summary_normal(4, 5, 2, 2, 500, 500, 0.05)$signif,
                "significant",
                tolerance = '3e')
-  expect_equal(pair_abs_diff_summary_normal(4, 5, 2, 2, 500, 500, 0.1)$point_est,
+  expect_equal(pair_abs_diff_summary_normal(4, 5, 2, 2, 500, 500, 0.1)$signif,
                "significant",
                tolerance = '3e')
-  expect_equal(pair_abs_diff_summary_normal(4, 4.1, 2, 2, 200, 210, 0.1)$point_est,
+  expect_equal(pair_abs_diff_summary_normal(4, 4.1, 2, 2, 200, 210, 0.1)$signif,
                "not significant",
                tolerance = '3e')
-  expect_equal(pair_abs_diff_summary_normal(4, 4.1, 2, 2, 200, 210, 0.05)$point_est,
+  expect_equal(pair_abs_diff_summary_normal(4, 4.1, 2, 2, 200, 210, 0.05)$signif,
                "not significant",
                tolerance = '3e')
 })
@@ -162,16 +157,16 @@ test_that("correct point estimate - relative difference", {
 })
 
 test_that("correct conclusion - relative difference", {
-  expect_equal(pair_rel_diff_summary_normal(4, 5, 2, 2, 500, 500, 0.05)$point_est,
+  expect_equal(pair_rel_diff_summary_normal(4, 5, 2, 2, 500, 500, 0.05)$signif,
                "significant",
                tolerance = '3e')
-  expect_equal(pair_rel_diff_summary_normal(4, 5, 2, 2, 500, 500, 0.1)$point_est,
+  expect_equal(pair_rel_diff_summary_normal(4, 5, 2, 2, 500, 500, 0.1)$signif,
                "significant",
                tolerance = '3e')
-  expect_equal(pair_rel_diff_summary_normal(4, 4.1, 2, 2, 200, 210, 0.1)$point_est,
+  expect_equal(pair_rel_diff_summary_normal(4, 4.1, 2, 2, 200, 210, 0.1)$signif,
                "not significant",
                tolerance = '3e')
-  expect_equal(pair_rel_diff_summary_normal(4, 4.1, 2, 2, 200, 210, 0.05)$point_est,
+  expect_equal(pair_rel_diff_summary_normal(4, 4.1, 2, 2, 200, 210, 0.05)$signif,
                "not significant",
                tolerance = '3e')
 })

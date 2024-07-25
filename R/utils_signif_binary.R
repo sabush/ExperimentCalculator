@@ -32,7 +32,7 @@ pair_rel_diff_summary_binary <- function(x1, x2, ss1, ss2, sig){
   se1 <- sqrt(prop1 * (1 - prop1) / ss1)
   se2 <- sqrt(prop2 * (1 - prop2) / ss2)
   # Use the delta method to estimate the standard error for the relative effect
-  sd_rat <- sqrt(1/(prop1 ** 2) * (se2 ** 2) + (prop2 ** 2) / (prop1 ** 4) * (se2 ** 2))
+  sd_rat <- sqrt(1/(prop1 ** 2) * (se2 ** 2) + (prop2 ** 2) / (prop1 ** 4) * (se1 ** 2))
 
   t_stat <- point_est / sd_rat
   p_value <- 2 * pnorm(-abs(t_stat))

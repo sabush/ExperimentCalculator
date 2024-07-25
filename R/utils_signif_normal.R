@@ -24,7 +24,7 @@ pair_rel_diff_summary_normal <- function(mean1, mean2, sd1, sd2, ss1, ss2, sig){
   se1 <- sd1 /sqrt(ss1)
   se2 <- sd2 /sqrt(ss2)
   # Use the delta method to estimate the standard error for the relative effect
-  sd_rat <- sqrt(1/(mean1 ** 2) * (se2 ** 2) + (mean2 ** 2) / (mean1 ** 4) * (se2 ** 2))
+  sd_rat <- sqrt(1/(mean1 ** 2) * (se2 ** 2) + (mean2 ** 2) / (mean1 ** 4) * (se1 ** 2))
 
   t_stat <- point_est / sd_rat
   p_value <- 2 * pnorm(-abs(t_stat))

@@ -24,11 +24,49 @@ You can install the development version of ExperimentCalculator like so:
 ``` r
 devtools::install_github('sabush/ExperimentCalculator')
 #> Using GitHub PAT from the git credential store.
-#> Skipping install of 'ExperimentCalculator' from a github remote, the SHA1 (a6cd4f1d) has not changed since last install.
-#>   Use `force = TRUE` to force installation
+#> Downloading GitHub repo sabush/ExperimentCalculator@HEAD
+#> Warning in untar2(tarfile, files, list, exdir, restore_times): skipping pax
+#> global extended headers
+#> Warning in untar2(tarfile, files, list, exdir, restore_times): skipping pax
+#> global extended headers
+#> Rcpp    (1.0.12 -> 1.0.13) [CRAN]
+#> tinytex (0.51   -> 0.52  ) [CRAN]
+#> xfun    (0.45   -> 0.46  ) [CRAN]
+#> yaml    (2.3.8  -> 2.3.9 ) [CRAN]
+#> knitr   (1.47   -> 1.48  ) [CRAN]
+#> Installing 5 packages: Rcpp, tinytex, xfun, yaml, knitr
+#> Installing packages into 'C:/Users/steph/AppData/Local/R/cache/R/renv/library/ExperimentCalculator-50fb6c6f/R-4.2/x86_64-w64-mingw32'
+#> (as 'lib' is unspecified)
+#> package 'Rcpp' successfully unpacked and MD5 sums checked
+#> package 'tinytex' successfully unpacked and MD5 sums checked
+#> package 'xfun' successfully unpacked and MD5 sums checked
+#> package 'yaml' successfully unpacked and MD5 sums checked
+#> Warning: cannot remove prior installation of package 'yaml'
+#> Warning in file.copy(savedcopy, lib, recursive = TRUE): problem copying
+#> C:\Users\steph\AppData\Local\R\cache\R\renv\library\ExperimentCalculator-50fb6c6f\R-4.2\x86_64-w64-mingw32\00LOCK\yaml\libs\x64\yaml.dll
+#> to
+#> C:\Users\steph\AppData\Local\R\cache\R\renv\library\ExperimentCalculator-50fb6c6f\R-4.2\x86_64-w64-mingw32\yaml\libs\x64\yaml.dll:
+#> Permission denied
+#> Warning: restored 'yaml'
+#> package 'knitr' successfully unpacked and MD5 sums checked
+#> 
+#> The downloaded binary packages are in
+#>  C:\Users\steph\AppData\Local\Temp\Rtmpsdi24N\downloaded_packages
+#> ── R CMD build ─────────────────────────────────────────────────────────────────
+#>          checking for file 'C:\Users\steph\AppData\Local\Temp\Rtmpsdi24N\remotes6bdc70a07f8c\sabush-ExperimentCalculator-d7e8ebe/DESCRIPTION' ...  ✔  checking for file 'C:\Users\steph\AppData\Local\Temp\Rtmpsdi24N\remotes6bdc70a07f8c\sabush-ExperimentCalculator-d7e8ebe/DESCRIPTION'
+#>       ─  preparing 'ExperimentCalculator':
+#>    checking DESCRIPTION meta-information ...     checking DESCRIPTION meta-information ...   ✔  checking DESCRIPTION meta-information
+#>       ─  checking for LF line-endings in source and make files and shell scripts
+#>   ─  checking for empty or unneeded directories
+#>      Omitted 'LazyData' from DESCRIPTION
+#>       ─  building 'ExperimentCalculator_0.0.0.9000.tar.gz'
+#>      
+#> 
+#> Installing package into 'C:/Users/steph/AppData/Local/R/cache/R/renv/library/ExperimentCalculator-50fb6c6f/R-4.2/x86_64-w64-mingw32'
+#> (as 'lib' is unspecified)
 ```
 
-## Example
+## Power Calculations
 
 This is a basic example which shows you how to solve a common problem:
 
@@ -36,30 +74,6 @@ This is a basic example which shows you how to solve a common problem:
 library(ExperimentCalculator)
 ## basic example code
 ```
-
-What is special about using `README.Rmd` instead of just `README.md`?
-You can include R chunks like so:
-
-``` r
-summary(cars)
-#>      speed           dist       
-#>  Min.   : 4.0   Min.   :  2.00  
-#>  1st Qu.:12.0   1st Qu.: 26.00  
-#>  Median :15.0   Median : 36.00  
-#>  Mean   :15.4   Mean   : 42.98  
-#>  3rd Qu.:19.0   3rd Qu.: 56.00  
-#>  Max.   :25.0   Max.   :120.00
-```
-
-You’ll still need to render `README.Rmd` regularly, to keep `README.md`
-up-to-date. `devtools::build_readme()` is handy for this.
-
-You can also embed plots, for example:
-
-<img src="man/figures/README-pressure-1.png" width="100%" />
-
-In that case, don’t forget to commit and push the resulting figure
-files, so they display on GitHub and CRAN.
 
 ## Code of Conduct
 

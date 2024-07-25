@@ -17,3 +17,5 @@ $run_dev.*
 ^\.circleci$
 ^\.circleci/config\.yml$
 ^\.gitlab-ci\.yml$
+^app\.R$
+^rsconnect$

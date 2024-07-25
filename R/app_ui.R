@@ -33,9 +33,15 @@ app_ui <- function(request) {
       header = tagList(
         use_theme(
           create_theme(
-            theme = 'sandstone',
+            theme = 'default',
             bs_vars_global(
               text_color = "#000"
+            ),
+            bs_vars_navbar(
+              default_bg = "#0072B2",
+              default_color = "#FFFFFF",
+              default_link_color = "#FFFFFF",
+              default_link_active_color = "#FFFFFF"
             ),
             bs_vars_color(
               brand_primary = '#0072B2'
@@ -67,10 +73,10 @@ app_ui <- function(request) {
       tabPanel(
         title = "Sample ratio mismatch test",
         mod_sample_ratio_ui("sample_ratio_1")
-      ),
+      )#,
 
-      actionButton("browser", "browser"),
-      tags$script("$('#browser').hide();")
+      # actionButton("browser", "browser"),
+      # tags$script("$('#browser').hide();")
     )
   )
 }

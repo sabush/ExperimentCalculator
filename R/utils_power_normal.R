@@ -5,6 +5,17 @@
 #' @return The return value, if any, from executing the utility.
 #'
 #' @noRd
+#' @export power_diff_norm
+#' @export solve_power_norm_n
+#' @export solve_power_norm_mde
+#' @export solve_power_helper_norm_ss
+#' @export solve_power_helper_norm_mde
+#' @export solve_power_all_pair_norm_ss
+#' @export solve_power_all_pair_norm_mde
+#' @export construct_text_pow_norm_ss
+#' @export construct_text_pow_norm_mde
+#' @export construct_power_curve_norm_ss
+#' @export construct_power_curve_norm_mde
 
 #### Functions to perform calculations for binary power calculations ####
 

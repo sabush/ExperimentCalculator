@@ -5,6 +5,9 @@
 #' @return The return value, if any, from executing the utility.
 #'
 #' @noRd
+#' @export create_srm_text
+
+
 create_srm_text <- function(count_table, threshold){
   srm_p_val <- chisq.test(count_table$sample_size,
                           p = count_table$expected_proportion)$p.value

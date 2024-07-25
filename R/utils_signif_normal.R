@@ -5,6 +5,14 @@
 #' @return The return value, if any, from executing the utility.
 #'
 #' @noRd
+#' @export pair_abs_diff_summary_normal
+#' @export pair_rel_diff_summary_normal
+#' @export construct_text_row_normal
+#' @export construct_text_normal
+#' @export construct_diff_plot_normal
+#' @export construct_group_plot_normal
+
+
 pair_abs_diff_summary_normal <- function(mean1, mean2, sd1, sd2, ss1, ss2, sig){
   point_est <- mean2 - mean1
   sd_diff <- sqrt(((ss1 - 1) * (sd1 ** 2) + (ss2 - 1) * (sd2 ** 2)) / (ss1 + ss2 - 2)) * sqrt(1 / ss1 + 1 / ss2)

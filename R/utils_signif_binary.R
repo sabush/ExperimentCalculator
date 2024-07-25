@@ -5,6 +5,13 @@
 #' @return The return value, if any, from executing the utility.
 #'
 #' @noRd
+#' @export pair_abs_diff_summary_binary
+#' @export pair_rel_diff_summary_binary
+#' @export construct_text_row_binary
+#' @export construct_text_binary
+#' @export construct_diff_plot_binary
+#' @export construct_group_plot_binary
+
 
 pair_abs_diff_summary_binary <- function(x1, x2, ss1, ss2, sig){
   prop1 <- x1 / ss1

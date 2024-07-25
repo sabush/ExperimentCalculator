@@ -86,7 +86,7 @@ mod_signif_binary_server <- function(id){
     }) %>% debounce(1000)
 
     # Format the summary table
-    output$group_summary_hot <- renderRHandsontable({
+    output$group_summary_hot <- rhandsontable::renderRHandsontable({
 
       if (isolate(values$reset_summ_table) == 1) {
         summ_DF <- values$summ_DF

@@ -25,7 +25,7 @@
 
 power_diff_norm <- function(tot_ss, split, mean1, mean2, sd, sig, pow_tgt){
   d_val <- (mean2 - mean1) / sd # Calculate the effect size
-  return(pwr.t2n.test(tot_ss * split, tot_ss * (1 - split), d_val, sig)$power - pow_tgt)
+  return(pwr::pwr.t2n.test(tot_ss * split, tot_ss * (1 - split), d_val, sig)$power - pow_tgt)
 }
 
 # Solve power problem for unknown sample size
@@ -69,7 +69,7 @@ solve_power_norm_n <- function(samp_prop, base_mean, base_sd, mde, eff_type, sig
 solve_power_norm_mde <- function(samp_prop, base_mean, base_sd, tot_ss, eff_type, sig, pow){
 
   # Solve the power calculation for an effect size
-  eff_size <- pwr.t2n.test(tot_ss * samp_prop, tot_ss * (1 - samp_prop), d = NULL, sig, power = pow)$d
+  eff_size <- pwr::pwr.t2n.test(tot_ss * samp_prop, tot_ss * (1 - samp_prop), d = NULL, sig, power = pow)$d
 
   # Find the raw second proportion that corresponds to the effect size
   mean2 <- eff_size * base_sd + base_mean

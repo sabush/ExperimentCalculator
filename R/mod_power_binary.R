@@ -111,7 +111,7 @@ mod_power_binary_server <- function(id){
     }) %>% debounce(1000)
 
     # Format the sample proportions table
-    output$sample_split_hot <- renderRHandsontable({
+    output$sample_split_hot <- rhandsontable::renderRHandsontable({
 
       if (isolate(values$reset_split_table) == 1) {
         split_DF <- values$split_DF

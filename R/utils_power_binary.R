@@ -26,8 +26,8 @@
 # Function to find the difference between observed and target power
 
 power_diff_bin <- function(tot_ss, split, prop1, prop2, sig, pow_tgt){
-  h_val <- ES.h(prop1, prop2) # Calculate the standardised effect size for two proportions
-  return(pwr.2p2n.test(h_val, tot_ss * split, tot_ss * (1 - split), sig)$power - pow_tgt)
+  h_val <- pwr::ES.h(prop1, prop2) # Calculate the standardised effect size for two proportions
+  return(pwr::pwr.2p2n.test(h_val, tot_ss * split, tot_ss * (1 - split), sig)$power - pow_tgt)
 }
 
 # Solve power problem for unknown sample size
@@ -73,7 +73,7 @@ solve_power_bin_n <- function(samp_prop, base_resp, mde, eff_type, sig, pow){
 # Solve power problem for unknown MDE
 
 es_diff_bin <- function(p2, es, p1){
-  return(es - ES.h(p2, p1))
+  return(es - pwr::ES.h(p2, p1))
 }
 
 solve_prop_bin <- function(es, p1){
@@ -86,7 +86,7 @@ solve_prop_bin <- function(es, p1){
 solve_power_bin_mde <- function(samp_prop, base_resp, tot_ss, eff_type, sig, pow){
 
   # Solve the power calculation for an effect size
-  eff_size <- pwr.2p2n.test(h = NULL, tot_ss * samp_prop, tot_ss * (1 - samp_prop), sig, power = pow)$h
+  eff_size <- pwr::pwr.2p2n.test(h = NULL, tot_ss * samp_prop, tot_ss * (1 - samp_prop), sig, power = pow)$h
 
   # Find the raw second proportion that corresponds to the effect size
   prop2 <- solve_prop_bin(eff_size, base_resp)

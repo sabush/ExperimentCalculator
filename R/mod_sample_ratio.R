@@ -64,7 +64,7 @@ mod_sample_ratio_server <- function(id){
     }) %>% debounce(1000)
 
     # Format the summary table
-    output$srm_hot <- renderRHandsontable({
+    output$srm_hot <- rhandsontable::renderRHandsontable({
 
       if (isolate(values$reset_srm_table) == 1) {
         srm_DF <- values$srm_DF

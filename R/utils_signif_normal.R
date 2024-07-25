@@ -18,7 +18,7 @@ pair_abs_diff_summary_normal <- function(mean1, mean2, sd1, sd2, ss1, ss2, sig){
   sd_diff <- sqrt(((ss1 - 1) * (sd1 ** 2) + (ss2 - 1) * (sd2 ** 2)) / (ss1 + ss2 - 2)) * sqrt(1 / ss1 + 1 / ss2)
   t_stat <- point_est / sd_diff
   p_value <- 2 * pnorm(-abs(t_stat))
-  signif <- if_else(p_value <= sig, "significant", "not significant")
+  signif <- dplyr::if_else(p_value <= sig, "significant", "not significant")
   LCI <- point_est - qt(1 - sig/2, ss1 + ss2 - 2) * sd_diff
   UCI <- point_est + qt(1 - sig/2, ss1 + ss2 - 2) * sd_diff
   return(list(signif = signif, LCI = LCI, UCI = UCI, point_est = point_est))
@@ -36,7 +36,7 @@ pair_rel_diff_summary_normal <- function(mean1, mean2, sd1, sd2, ss1, ss2, sig){
 
   t_stat <- point_est / sd_rat
   p_value <- 2 * pnorm(-abs(t_stat))
-  signif <- if_else(p_value <= sig, "significant", "not significant")
+  signif <- dplyr::if_else(p_value <= sig, "significant", "not significant")
   LCI <- point_est - qt(1 - sig/2, ss1 + ss2 - 2) * sd_rat
   UCI <- point_est + qt(1 - sig/2, ss1 + ss2 - 2) * sd_rat
   return(list(signif = signif, LCI = LCI, UCI = UCI, point_est = point_est))

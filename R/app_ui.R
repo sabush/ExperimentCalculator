@@ -36,7 +36,11 @@ app_ui <- function(request) {
             theme = 'sandstone',
             bs_vars_global(
               text_color = "#000"
-            )
+            ),
+            bs_vars_color(
+              brand_primary = '#0072B2'
+            ),
+            output_file = NULL
           )
         )
       ),

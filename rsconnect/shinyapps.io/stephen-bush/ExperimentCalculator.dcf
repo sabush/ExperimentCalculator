@@ -5,8 +5,9 @@ account: stephen-bush
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 12363530
-bundleId:
+bundleId: 8905264
 url: https://stephen-bush.shinyapps.io/ExperimentCalculator/
 version: 1
 asMultiple: FALSE
 asStatic: FALSE
+ignoredFiles: .circleci/config.yml|.github/workflows/pr-commands.yaml|.github/workflows/R-CMD-check.yaml|.gitlab-ci.yml|.here|.Rbuildignore|.Rprofile|CODE_OF_CONDUCT.md|codecov.yml|dev/01_start.R|dev/02_dev.R|dev/03_deploy.R|dev/config_attachment.yaml|dev/run_dev.R|doc/Experiment_Calculator.html|doc/Experiment_Calculator.R|doc/Experiment_Calculator.Rmd|LICENSE|LICENSE.md|man/figures/README-pressure-1.png|man/run_app.Rd|Meta/vignette.rds|NEWS.md|README.md|README.Rmd|renv.lock|vignettes/Experiment_Calculator.Rmd|tests

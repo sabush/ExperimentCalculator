@@ -18,18 +18,18 @@ mod_signif_binary_ui <- function(id){
         p(HTML('To add additional groups, right click on the table and select <i>Insert Row Below</i>')),
         p(HTML('<i>label</i>: Group label for graphs, <br><i>sample_size</i>: Number of observations in group, <br><i>num_success</i>: Number of successful outcomes in group')),
         br(),
-        rHandsontableOutput(ns('group_summary_hot')),
+        rhandsontable::rHandsontableOutput(ns('group_summary_hot')),
         br(),
         br(),
         radioButtons(ns("effect_type"), "Effect Type to be used",
                      choiceNames = c("Absolute Effect", "Relative Effect"),
                      choiceValues = c("abs", "rel")),
-        bsTooltip(ns('effect_type'),
+        shinyBS::bsTooltip(ns('effect_type'),
                   'An absolute effect is defined by the difference between the proportions in each group (new - old), where the relative effect is the percentage change in the outcome ((new - old)/old)'),
 
-        numericInputIcon(ns("sig_lvl"), "Level of Significance", 5, 1, 20, 1,
+        shinyWidgets::numericInputIcon(ns("sig_lvl"), "Level of Significance", 5, 1, 20, 1,
                          icon = list(NULL, icon("percent"))),
-        numericInputIcon(ns("pwr_lvl"), "Level of Power", 80, 60, 95, 5,
+        shinyWidgets::numericInputIcon(ns("pwr_lvl"), "Level of Power", 80, 60, 95, 5,
                          icon = list(NULL, icon("percent"))),
         radioButtons(ns("comparisons"), "Which comparisons would you like to estimate",
                      choices = c("Compare to first" = "first", "Compare all pairs" = "all"),
@@ -47,10 +47,10 @@ mod_signif_binary_ui <- function(id){
         br(),
         p(HTML('<b>Plots</b>')),
         br(),
-        plotlyOutput(ns('diff_plot')),
+        plotly::plotlyOutput(ns('diff_plot')),
         br(),
         br(),
-        plotlyOutput(ns('group_plot'))
+        plotly::plotlyOutput(ns('group_plot'))
       )
     )
   )
@@ -151,7 +151,7 @@ mod_signif_binary_server <- function(id){
 
     # Plot confidence intervals for differences
 
-    output$diff_plot <- renderPlotly({
+    output$diff_plot <- plotly::renderPlotly({
       summ_table <- values$summ_DF
       validate(
         need(!anyNA(values$summ_DF$label), ''),
@@ -190,7 +190,7 @@ mod_signif_binary_server <- function(id){
 
     # Plot confidence intervals for each group
 
-    output$group_plot <- renderPlotly({
+    output$group_plot <- plotly::renderPlotly({
       summ_table <- values$summ_DF
       validate(
         need(!anyNA(values$summ_DF$label), ''),

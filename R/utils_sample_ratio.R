@@ -9,6 +9,7 @@
 
 
 create_srm_text <- function(count_table, threshold){
+  options(scipen = 1000)
   srm_p_val <- chisq.test(count_table$sample_size,
                           p = count_table$expected_proportion)$p.value
 

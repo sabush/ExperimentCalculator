@@ -155,7 +155,7 @@ construct_diff_plot_normal <- function(summ_table, eff_type, comparisons, sig, c
              label = factor(label))
 
     base_plot <- working_frame %>%
-      ggplot(aes(x = label, y = mean, colour = fct_rev(label))) +
+      ggplot2::ggplot(aes(x = label, y = mean, colour = forcats::fct_rev(label))) +
       geom_crossbar(aes(ymin = LCI, ymax = UCI), width = 0.1, fill = 'grey', colour = 'grey') +
       geom_point(size = 10) +
       geom_hline(aes(yintercept = 0), colour = 'red') +

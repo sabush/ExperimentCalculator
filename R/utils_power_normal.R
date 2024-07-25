@@ -47,7 +47,7 @@ solve_power_norm_n <- function(samp_prop, base_mean, base_sd, mde, eff_type, sig
   range_max <- 1000000000
 
   # Return an error if the max will be exceeded\
-  if(pwr.t2n.test(range_max * samp_prop, range_max * (1 - samp_prop), (mean2 - mean1) / base_sd, sig)$power < 0.8){
+  if(pwr::pwr.t2n.test(range_max * samp_prop, range_max * (1 - samp_prop), (mean2 - mean1) / base_sd, sig)$power < 0.8){
     return("The required sample size exceeds 1,000,000,000")
   }
 
@@ -289,7 +289,7 @@ construct_power_curve_norm_ss <-
         samp_prop2 = samp_prop[group_2],
         sig = sig) %>%
       rowwise() %>%
-      mutate(power = pwr.t2n.test(x * samp_prop1, x * samp_prop2, (mean2 - mean1) / sd, sig)$power)
+      mutate(power = pwr::pwr.t2n.test(x * samp_prop1, x * samp_prop2, (mean2 - mean1) / sd, sig)$power)
 
     plot <- power_table %>%
       ggplot(aes(x = x, y = power)) + geom_line(colour = colour_vec[1]) +
@@ -326,7 +326,7 @@ construct_power_curve_norm_mde <-
         ss_prop2 = tot_ss * samp_prop[group_2],
         sig = sig) %>%
       rowwise() %>%
-      mutate(power = pwr.t2n.test(ss_prop1, ss_prop2, (mean2 - mean1) / sd, sig)$power)
+      mutate(power = pwr::pwr.t2n.test(ss_prop1, ss_prop2, (mean2 - mean1) / sd, sig)$power)
 
     title_txt <- paste0('Power Plot for a total sample size of ', tot_ss)
 

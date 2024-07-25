@@ -21,45 +21,45 @@ mod_power_normal_ui <- function(id){
         conditionalPanel(condition = "input.calc_type == 'mde'",
                          numericInput(ns('sample_size'), 'Total Available Sample Size', 10000),
                          ns = ns,
-                         bsTooltip(ns('sample_size'),
+                         shinyBS::bsTooltip(ns('sample_size'),
                                    'How many observations are available across all groups in the experiment?'),
         ),
 
-        numericInputIcon(ns('base_mean'), 'Mean response in the baseline group', 5),
-        numericInputIcon(ns('base_sd'), 'Standard deviation in the baseline group', 8),
+        shinyWidgets::numericInputIcon(ns('base_mean'), 'Mean response in the baseline group', 5),
+        shinyWidgets::numericInputIcon(ns('base_sd'), 'Standard deviation in the baseline group', 8),
 
         p(HTML('<b>Sample split across experiment groups</b>')),
         p(HTML('To add additional groups, right click on the table and select <i>Insert Row Below</i>')),
         br(),
-        rHandsontableOutput(ns('sample_split_hot')),
+        rhandsontable::rHandsontableOutput(ns('sample_split_hot')),
         br(),
         br(),
         radioButtons(ns("effect_type"), "Effect Type to be used",
                      choiceNames = c("Absolute Effect", "Relative Effect"),
                      choiceValues = c("abs", "rel")),
-        bsTooltip(ns('effect_type'),
+        shinyBS::bsTooltip(ns('effect_type'),
                   'An absolute effect is defined by the difference between the proportions in each group (new - old), where the relative effect is the percentage change in the outcome ((new - old)/old)'),
 
         # Specify MDE if sample size being calculated - absolute effect
         conditionalPanel(condition = "input.calc_type == 'mss' & input.effect_type == 'abs'",
-                         numericInputIcon(ns('min_effect_abs'), 'Minimum Detectible Effect', 2),
+                         shinyWidgets::numericInputIcon(ns('min_effect_abs'), 'Minimum Detectible Effect', 2),
                          ns = ns,
-                         bsTooltip(ns('min_effect_abs'),
+                         shinyBS::bsTooltip(ns('min_effect_abs'),
                                    'What is the smallest absolute effect size that would be considered meaningful for the experiments? Note that the smaller this effect, the larger the sample size will be.'),
         ),
 
         # Specify MDE if sample size being calculated - absolute effect
         conditionalPanel(condition = "input.calc_type == 'mss' & input.effect_type == 'rel'",
-                         numericInputIcon(ns('min_effect_rel'), 'Minimum Detectible Effect', 5,
+                         shinyWidgets::numericInputIcon(ns('min_effect_rel'), 'Minimum Detectible Effect', 5,
                                           icon = list(NULL, icon("percent"))),
                          ns = ns,
-                         bsTooltip(ns('min_effect_rel'),
+                         shinyBS::bsTooltip(ns('min_effect_rel'),
                                    'What is the smallest relative effect size that would be considered meaningful for the experiments? Note that the smaller this effect, the larger the sample size will be.'),
         ),
 
-        numericInputIcon(ns("sig_lvl"), "Level of Significance", 5, 1, 20, 1,
+        shinyWidgets::numericInputIcon(ns("sig_lvl"), "Level of Significance", 5, 1, 20, 1,
                          icon = list(NULL, icon("percent"))),
-        numericInputIcon(ns("pwr_lvl"), "Level of Power", 80, 60, 95, 5,
+        shinyWidgets::numericInputIcon(ns("pwr_lvl"), "Level of Power", 80, 60, 95, 5,
                          icon = list(NULL, icon("percent"))),
         radioButtons(ns("comparisons"), "Which comparisons would you like to estimate",
                      choices = c("Compare to first" = "first", "Compare all pairs" = "all"),
@@ -74,7 +74,7 @@ mod_power_normal_ui <- function(id){
         uiOutput(ns('text_string')),
         br(),
         selectizeInput(ns('treatment_pair'), 'Comparison for Power Curve', choices = NULL),
-        plotlyOutput(ns('power_curve'))
+        plotly::plotlyOutput(ns('power_curve'))
       )
     ))}
 
@@ -225,7 +225,7 @@ mod_power_normal_server <- function(id){
     })
 
     # Construct a Power Curve
-    output$power_curve <- renderPlotly({
+    output$power_curve <- plotly::renderPlotly({
 
       # Validations
       validate(

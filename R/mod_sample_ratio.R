@@ -18,11 +18,11 @@ mod_sample_ratio_ui <- function(id){
         p(HTML('To add additional groups, right click on the table and select <i>Insert Row Below</i>')),
         p(HTML('<i>sample_size</i>: Number of observations in group, <br><i>expected_proportions</i>: Expected proportion of sample in each group')),
         br(),
-        rHandsontableOutput(ns('srm_hot')),
+        rhandsontable::rHandsontableOutput(ns('srm_hot')),
         br(),
         br(),
 
-        numericInputIcon(ns("srm_thresh"), "Threshold for sample ratio mismatch (p-value)", 0.1, 0.01, 1, 0.01,
+        shinyWidgets::numericInputIcon(ns("srm_thresh"), "Threshold for sample ratio mismatch (p-value)", 0.1, 0.01, 1, 0.01,
                          icon = list(NULL, icon("percent"))),
       ),
 

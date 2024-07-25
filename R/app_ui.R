@@ -3,6 +3,13 @@
 #' @param request Internal parameter for `{shiny}`.
 #'     DO NOT REMOVE.
 #' @import shiny
+#' @import shinyBS
+#' @import shinyWidgets
+#' @import rhandsontable
+#' @import dplyr
+#' @import pwr
+#' @import scales
+#' @import plotly
 #' @noRd
 
 library(plotly)
@@ -11,7 +18,6 @@ library(shinyBS)
 library(shinyWidgets)
 library(fresh)
 library(rhandsontable)
-library(tibble)
 library(ggplot2)
 library(dplyr)
 library(pwr)
@@ -37,7 +43,7 @@ app_ui <- function(request) {
             bs_vars_global(
               text_color = "#000"
             ),
-            bs_vars_navbar(
+            fresh::bs_vars_navbar(
               default_bg = "#0072B2",
               default_color = "#FFFFFF",
               default_link_color = "#FFFFFF",

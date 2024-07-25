@@ -49,12 +49,12 @@ solve_power_bin_n <- function(samp_prop, base_resp, mde, eff_type, sig, pow){
   range_max <- 1000000000
 
   # Return an error if the max will be exceeded
-  if(pwr.2p2n.test(ES.h(prop1, prop2), range_max * samp_prop, range_max * (1 - samp_prop), sig)$power < 0.8){
+  if(pwr::pwr.2p2n.test(pwr::ES.h(prop1, prop2), range_max * samp_prop, range_max * (1 - samp_prop), sig)$power < 0.8){
     return("The required sample size exceeds 1,000,000,000")
   }
 
   # Return an error if the min not be met
-  if(pwr.2p2n.test(ES.h(prop1, prop2), range_min * samp_prop, range_min * (1 - samp_prop), sig)$power > 0.8){
+  if(pwr::pwr.2p2n.test(pwr::ES.h(prop1, prop2), range_min * samp_prop, range_min * (1 - samp_prop), sig)$power > 0.8){
     return("The required sample size is less than 8")
   }
 
@@ -265,7 +265,7 @@ construct_power_curve_bin_ss <-
 
 
     # Extract the requested comparison
-    split_string <- str_split(comp, " v ")
+    split_string <- stringr::str_split(comp, " v ")
     group_1 <- as.numeric(split_string[[1]][1])
     group_2 <- as.numeric(split_string[[1]][2])
 
@@ -286,7 +286,7 @@ construct_power_curve_bin_ss <-
         samp_prop2 = samp_prop[group_2],
         sig = sig) %>%
       rowwise() %>%
-      mutate(power = pwr.2p2n.test(ES.h(prop1, prop2), x * samp_prop1, x * samp_prop2, sig)$power)
+      mutate(power = pwr::pwr.2p2n.test(pwr::ES.h(prop1, prop2), x * samp_prop1, x * samp_prop2, sig)$power)
 
     plot <- power_table %>%
       ggplot(aes(x = x, y = power)) + geom_line(colour = colour_vec[1]) +
@@ -323,9 +323,9 @@ construct_power_curve_bin_mde <-
         ss_prop1 = tot_ss * samp_prop[group_1],
         ss_prop2 = tot_ss * samp_prop[group_2],
         sig = sig,
-        esh = ES.h(prop1, prop2)) %>%
+        esh = pwr::ES.h(prop1, prop2)) %>%
       rowwise() %>%
-      mutate(power = pwr.2p2n.test(esh, ss_prop1, ss_prop2, sig)$power)
+      mutate(power = pwr::pwr.2p2n.test(esh, ss_prop1, ss_prop2, sig)$power)
 
     if(eff_type == 'abs'){
       x_txt <- 'Effect Size (Absolute)'

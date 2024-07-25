@@ -87,6 +87,8 @@ usethis::use_gitlab_ci()
 usethis::use_circleci()
 usethis::use_circleci_badge()
 
+# Suppress warnings for global definitions
+checkhelper::print_globals(quiet = TRUE)
 
 # You're now set! ----
 # go to dev/03_deploy.R

@@ -5,6 +5,8 @@ account: stephen-bush
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 12363530
-bundleId: 8905211
+bundleId:
 url: https://stephen-bush.shinyapps.io/ExperimentCalculator/
 version: 1
+asMultiple: FALSE
+asStatic: FALSE

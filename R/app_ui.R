@@ -7,6 +7,7 @@
 #' @import shinyWidgets
 #' @import rhandsontable
 #' @import dplyr
+#' @import fresh
 #' @import pwr
 #' @import scales
 #' @import plotly
@@ -37,7 +38,7 @@ app_ui <- function(request) {
     navbarPage(
       title = "Power and Significance Calculator",
       header = tagList(
-        use_theme(
+        fresh::use_theme(
           create_theme(
             theme = 'default',
             bs_vars_global(
@@ -49,7 +50,7 @@ app_ui <- function(request) {
               default_link_color = "#FFFFFF",
               default_link_active_color = "#FFFFFF"
             ),
-            bs_vars_color(
+            fresh::bs_vars_color(
               brand_primary = '#0072B2'
             ),
             output_file = NULL

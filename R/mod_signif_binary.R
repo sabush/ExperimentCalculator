@@ -29,8 +29,6 @@ mod_signif_binary_ui <- function(id){
 
         shinyWidgets::numericInputIcon(ns("sig_lvl"), "Level of Significance", 5, 1, 20, 1,
                          icon = list(NULL, icon("percent"))),
-        shinyWidgets::numericInputIcon(ns("pwr_lvl"), "Level of Power", 80, 60, 95, 5,
-                         icon = list(NULL, icon("percent"))),
         radioButtons(ns("comparisons"), "Which comparisons would you like to estimate",
                      choices = c("Compare to first" = "first", "Compare all pairs" = "all"),
                      selected = 'first'),

@@ -33,16 +33,16 @@ devtools::install_github('sabush/ExperimentCalculator')
 
 ```
 
-## Power Calculations
+## Load the Calculator
 
-This is a basic example which shows you how to solve a common problem:
+To load the power and significance calculator, load the library and run the app
 
 ```{r example}
 library(ExperimentCalculator)
-## basic example code
+#ExperimentCalculator::run_app() # Uncomment to run the app
 ```
 
-
+Further usage of the app can be found in the vignettes.
 
 ## Code of Conduct
   

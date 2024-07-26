@@ -7,20 +7,16 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
-)
-```
+
 
 ## Running the power calculator locally
 
 To run the power calculator locally, run the following code:
 
-```{r setup}
+
+``` r
 library(ExperimentCalculator)
-#ExperimentCalculator::run_app() # Uncomment to run the app
+#ExperimentCalculator::run_app() # Uncomment to run the apps
 ```
 
 If you don't want to run locally, the calculator is also available on shinyapps.io here (https://stephen-bush.shinyapps.io/ExperimentCalculator/)

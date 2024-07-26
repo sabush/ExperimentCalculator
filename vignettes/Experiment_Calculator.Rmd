@@ -55,7 +55,7 @@ There are other experiment design factors that also need to be defined to perfor
   * Comparisons to make - do you want to compare all groups to the baseline group, or all pairs of groups. The latter option involves more comparisons.
   * Multiple comparisons correction - do you want to correct for multiple comparisons? Note that not correcting means that there is an increased chance of a false positive in at least one group.
 
-INSERT IMAGE
+![Power calculation dialogue for Binary outcomes](power_bin.png){width=100%}
 
 Once this information is entered, the power calculator will determine either the required sample size or minimum detectable effect, and construct power plots for each pair of treatments. The power plot can be downloaded by selecting the camera icon when hovering over the plot.
 
@@ -80,7 +80,8 @@ There are other experiment design factors that also need to be defined to perfor
   * Comparisons to make - do you want to compare all groups to the baseline group, or all pairs of groups. The latter option involves more comparisons.
   * Multiple comparisons correction - do you want to correct for multiple comparisons? Note that not correcting means that there is an increased chance of a false positive in at least one group.
 
-INSERT IMAGE
+![Power calculation dialogue for Numeric outcomes](power_norm.png){width=100%}
+
 
 Once this information is entered, the power calculator will determine either the required sample size or minimum detectable effect, and construct power plots for each pair of treatments. The power plot can be downloaded by selecting the camera icon when hovering over the plot.
 
@@ -103,6 +104,9 @@ There are additional variables that you will need to include to perform analysis
 * If there are more than two groups, then there are two more relevant options:
   * Comparisons to make - do you want to compare all groups to the first group (which should be the control/baseline), or all pairs of groups.
   * Multiple comparisons correction - do you want to correct for multiple comparisons? Note that not correcting means that there is an increased chance of a false positive in at least one group.
+
+![Significance calculation dialogue for Binary outcomes](sig_bin.png){width=100%}
+
   
 Once this information is entered, the app will produce a summary, as well as two plots. The first plot shows the difference between each pair of groups (depending on which groups you have asked to compare), and the second plot summarises each group. These plots can be downloaded by selecting the camera icon when hovering over the plot.
 
@@ -119,6 +123,8 @@ There are additional variables that you will need to include to perform analysis
   * Comparisons to make - do you want to compare all groups to the first group (which should be the control/baseline), or all pairs of groups.
   * Multiple comparisons correction - do you want to correct for multiple comparisons? Note that not correcting means that there is an increased chance of a false positive in at least one group.
   
+![Significance calculation dialogue for Numeric outcomes](sig_norm.png){width=100%}
+
 Once this information is entered, the app will produce a summary, as well as two plots. The first plot shows the difference between each pair of groups (depending on which groups you have asked to compare), and the second plot summarises each group. These plots can be downloaded by selecting the camera icon when hovering over the plot.
 
 ## Sample Ratio Check
@@ -131,7 +137,7 @@ This tab allows you to perform a sample ratio check for an experiment with two o
 2. For each group, enter the number of observations that you have in that group in the column titled "sample_size" and the proportion of observations that you expect to be in that group (based on the design) in the column titled "expected_proportion".
 3. (Optional) Set the threshold for the sample ratio mismatch test. Note that by default the threshold is set to the recommendation above.
 
-INSERT IMAGE
+![Sample Ratio Test dialogue](srm.png){width=100%}
 
 On the right hand panel, there is a statement about whether there is a sample ratio error as well as a p-value for the test.
 

@@ -22,6 +22,10 @@ knitr::opts_chunk$set(
 
 The goal of Experiment Calculator is to provide a simple calculator to plan, analyse and diagnose simple experiments.
 
+## Use shinyapps.io
+
+This package allows you to run the app locally. If you don't want to run the dashboard locally, then the calculator is also available on shinyapps.io here (https://stephen-bush.shinyapps.io/ExperimentCalculator/)
+
 ## Installation
 
 You can install the development version of ExperimentCalculator like so:

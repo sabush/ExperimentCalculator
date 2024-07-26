@@ -13,6 +13,13 @@ stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://
 The goal of Experiment Calculator is to provide a simple calculator to
 plan, analyse and diagnose simple experiments.
 
+## Use shinyapps.io
+
+This package allows you to run the app locally. If you don’t want to run
+the dashboard locally, then the calculator is also available on
+shinyapps.io here
+(<https://stephen-bush.shinyapps.io/ExperimentCalculator/>)
+
 ## Installation
 
 You can install the development version of ExperimentCalculator like so:
@@ -20,9 +27,8 @@ You can install the development version of ExperimentCalculator like so:
 ``` r
 devtools::install_github('sabush/ExperimentCalculator')
 #> Using GitHub PAT from the git credential store.
-#> Downloading GitHub repo sabush/ExperimentCalculator@HEAD
-#> Installing package into 'C:/Users/steph/AppData/Local/R/cache/R/renv/library/ExperimentCalculator-50fb6c6f/R-4.2/x86_64-w64-mingw32'
-#> (as 'lib' is unspecified)
+#> Skipping install of 'ExperimentCalculator' from a github remote, the SHA1 (031c19f8) has not changed since last install.
+#>   Use `force = TRUE` to force installation
 ```
 
 ## Load the Calculator

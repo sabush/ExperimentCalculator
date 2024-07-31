@@ -74,7 +74,10 @@ solve_power_bin_n <- function(samp_prop, base_resp, mde, eff_type, sig, pow){
                   prop1 = prop1,
                   prop2 = prop2,
                   sig = sig,
-                  pow_tgt = pow)
+                  pow_tgt = pow,
+                  check.conv = TRUE,
+                  maxiter = 10000,
+                  tol = .Machine$double.eps^0.5)
 
   return(ceiling(root$root))
 }
@@ -92,7 +95,10 @@ solve_prop_bin <- function(es, p1){
   prop2 <- uniroot(f = es_diff_bin,
                    interval = c(0, 1),
                    es = es,
-                   p1 = p1)$root
+                   p1 = p1,
+                   check.conv = TRUE,
+                   maxiter = 10000,
+                   tol = .Machine$double.eps^0.5)$root
   return(prop2)
 }
 

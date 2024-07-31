@@ -73,7 +73,8 @@ solve_power_norm_n <- function(samp_prop, base_mean, base_sd, mde, eff_type, sig
                   sig = sig,
                   pow_tgt = pow,
                   check.conv = TRUE,
-                  maxiter = 10000)
+                  maxiter = 10000,
+                  tol = .Machine$double.eps^0.5)
 
   return(ceiling(root$root))
 }

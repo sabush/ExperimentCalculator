@@ -12,6 +12,9 @@
 #' @import scales
 #' @import plotly
 #' @import ggplot2
+#' @import stringr
+#' @import forcats
+#' @importFrom stats chisq.test pnorm power qnorm qt sd uniroot
 #' @noRd
 
 library(plotly)
@@ -26,6 +29,8 @@ library(pwr)
 library(scales)
 library(stringr)
 library(forcats)
+library(stats)
+
 options(scipen = 999)
 colour_vec <- c('#E69F00', '#56B4E9', '#009E73', '#F0E442', '#0072B2', '#D55E00', '#CC79A7')
 

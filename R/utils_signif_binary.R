@@ -205,7 +205,7 @@ construct_diff_plot_binary <- function(summ_table, eff_type, comparisons, sig, c
              label = factor(label))
 
     base_plot <- working_frame %>%
-      ggplot2::ggplot(ggplot2::aes(x = label, y = diff, colour = fct_rev(label))) +
+      ggplot2::ggplot(ggplot2::aes(x = label, y = diff, colour = forcats::fct_rev(label))) +
       ggplot2::geom_crossbar(aes(ymin = LCI, ymax = UCI), width = 0.1, fill = 'grey', colour = 'grey') +
       ggplot2::geom_point(size = 10) +
       ggplot2::geom_hline(ggplot2::aes(yintercept = 0), colour = 'red') +

@@ -103,72 +103,72 @@ test_that("power solver is correct - normal, min detectible effect calculation",
   # Absolute differences
   expect_equal(solve_power_norm_mde(0.5, 4, 2, 1000, 'abs', 0.05, 0.8),
                pwr::pwr.t2n.test(1000 * 0.5, 1000 * 0.5, d = NULL, 0.05, 0.8)$d * 2,
-               tolerance = '2e')
+               tolerance = 1e-3)
 })
 test_that("power solver is correct - normal, min detectible effect calculation", {
   expect_equal(solve_power_norm_mde(0.3, 4, 2, 1000, 'abs', 0.05, 0.8),
-               pwr::pwr.t2n.test(1000 * 0.3, 1000 * 0.3, d = NULL, 0.05, 0.8)$d * 2,
-               tolerance = '2e')
+               pwr::pwr.t2n.test(1000 * 0.3, 1000 * 0.7, d = NULL, 0.05, 0.8)$d * 2,
+               tolerance = 1e-3)
 })
 test_that("power solver is correct - normal, min detectible effect calculation", {
   expect_equal(solve_power_norm_mde(0.5, 5, 2, 1000, 'abs', 0.05, 0.8),
                pwr::pwr.t2n.test(1000 * 0.5, 1000 * 0.5, d = NULL, 0.05, 0.8)$d * 2,
-               tolerance = '2e')
+               tolerance = 1e-3)
 })
-# test_that("power solver is correct - normal, min detectible effect calculation", {
-#   expect_equal(solve_power_norm_mde(0.5, 4, 3, 1000, 'abs', 0.05, 0.8),
-#                pwr::pwr.t2n.test(1000 * 0.5, 1000 * 0.5, d = NULL, 0.05, 0.8)$d * 3,
-#                tolerance = '2e')
-# })
-# test_that("power solver is correct - normal, min detectible effect calculation", {
-#   expect_equal(solve_power_norm_mde(0.5, 4, 2, 2000, 'abs', 0.05, 0.8),
-#                pwr::pwr.t2n.test(2000 * 0.5, 2000 * 0.5, d = NULL, 0.05, 0.8)$d * 2,
-#                tolerance = '2e')
-# })
+test_that("power solver is correct - normal, min detectible effect calculation", {
+  expect_equal(solve_power_norm_mde(0.5, 4, 3, 1000, 'abs', 0.05, 0.8),
+               pwr::pwr.t2n.test(1000 * 0.5, 1000 * 0.5, d = NULL, 0.05, 0.8)$d * 3,
+               tolerance = 1e-3)
+})
+test_that("power solver is correct - normal, min detectible effect calculation", {
+  expect_equal(solve_power_norm_mde(0.5, 4, 2, 2000, 'abs', 0.05, 0.8),
+               pwr::pwr.t2n.test(2000 * 0.5, 2000 * 0.5, d = NULL, 0.05, 0.8)$d * 2,
+               tolerance = 1e-3)
+})
 test_that("power solver is correct - normal, min detectible effect calculation", {
   expect_equal(solve_power_norm_mde(0.5, 4, 2, 1000, 'abs', 0.1, 0.8),
                pwr::pwr.t2n.test(1000 * 0.5, 1000 * 0.5, d = NULL, 0.1, 0.8)$d * 2,
-               tolerance = '2e')
+               tolerance = 1e-3)
 })
-# test_that("power solver is correct - normal, min detectible effect calculation", {
-#   expect_equal(solve_power_norm_mde(0.5, 4, 2, 1000, 'abs', 0.05, 0.9),
-#                pwr::pwr.t2n.test(1000 * 0.5, 1000 * 0.5, d = NULL, 0.05, 0.9)$d * 2,
-#                tolerance = '2e')
-# })
+test_that("power solver is correct - normal, min detectible effect calculation", {
+  expect_equal(solve_power_norm_mde(0.5, 4, 2, 1000, 'abs', 0.05, 0.9),
+               pwr::pwr.t2n.test(1000 * 0.5, 1000 * 0.5, d = NULL, 0.05, 0.9)$d * 2,
+               tolerance = 1e-3)
+})
 # relative differences
 test_that("power solver is correct - normal, min detectible effect calculation", {
   expect_equal(solve_power_norm_mde(0.5, 4, 2, 1000, 'rel', 0.05, 0.8),
                pwr::pwr.t2n.test(1000 * 0.5, 1000 * 0.5, d = NULL, 0.05, 0.8)$d * 2 / 4,
-               tolerance = '2e')
+               tolerance = 1e-3)
 })
 test_that("power solver is correct - normal, min detectible effect calculation", {
   expect_equal(solve_power_norm_mde(0.3, 4, 2, 1000, 'rel', 0.05, 0.8),
-               pwr::pwr.t2n.test(1000 * 0.3, 1000 * 0.3, d = NULL, 0.05, 0.8)$d * 2 / 4,
-               tolerance = '2e')
+               pwr::pwr.t2n.test(1000 * 0.3, 1000 * 0.7, d = NULL, 0.05, 0.8)$d * 2 / 4,
+               tolerance = 1e-3)
 })
 test_that("power solver is correct - normal, min detectible effect calculation", {
   expect_equal(solve_power_norm_mde(0.5, 5, 2, 1000, 'rel', 0.05, 0.8),
                pwr::pwr.t2n.test(1000 * 0.5, 1000 * 0.5, d = NULL, 0.05, 0.8)$d * 2 / 5,
-               tolerance = '2e')
+               tolerance = 1e-3)
 })
 test_that("power solver is correct - normal, min detectible effect calculation", {
   expect_equal(solve_power_norm_mde(0.5, 4, 3, 1000, 'rel', 0.05, 0.8),
                pwr::pwr.t2n.test(1000 * 0.5, 1000 * 0.5, d = NULL, 0.05, 0.8)$d * 3 / 4,
-               tolerance = '2e')
+               tolerance = 1e-3)
 })
 test_that("power solver is correct - normal, min detectible effect calculation", {
   expect_equal(solve_power_norm_mde(0.5, 4, 2, 2000, 'rel', 0.05, 0.8),
                pwr::pwr.t2n.test(2000 * 0.5, 2000 * 0.5, d = NULL, 0.05, 0.8)$d * 2 / 4,
-               tolerance = '2e')
+               tolerance = 1e-3)
 })
-# test_that("power solver is correct - normal, min detectible effect calculation", {
-#   expect_equal(solve_power_norm_mde(0.5, 4, 2, 1000, 'rel', 0.1, 0.8),
-#                pwr::pwr.t2n.test(1000 * 0.5, 1000 * 0.5, d = NULL, 0.1, 0.8)$d * 2 / 4,
-#                tolerance = '2e')
-#
-# })
+test_that("power solver is correct - normal, min detectible effect calculation", {
+  expect_equal(solve_power_norm_mde(0.5, 4, 2, 1000, 'rel', 0.1, 0.8),
+               pwr::pwr.t2n.test(1000 * 0.5, 1000 * 0.5, d = NULL, 0.1, 0.8)$d * 2 / 4,
+               tolerance = 1e-3)
+
+})
 test_that("power solver is correct - normal, min detectible effect calculation", {
   expect_equal(solve_power_norm_mde(0.5, 4, 2, 1000, 'rel', 0.05, 0.9),
                pwr::pwr.t2n.test(1000 * 0.5, 1000 * 0.5, d = NULL, 0.05, 0.9)$d * 2 / 4,
-               tolerance = '2e')
+               tolerance = 1e-3)
 })

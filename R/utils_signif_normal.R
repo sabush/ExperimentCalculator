@@ -14,6 +14,16 @@
 
 
 pair_abs_diff_summary_normal <- function(mean1, mean2, sd1, sd2, ss1, ss2, sig){
+
+  # Initialise local variables
+  point_est <- NULL
+  sd_diff <- NULL
+  t_stat <- NULL
+  p_value <- NULL
+  signif <- NULL
+  LCI <- NULL
+  UCI <- NULL
+
   point_est <- mean2 - mean1
   sd_diff <- sqrt(((ss1 - 1) * (sd1 ** 2) + (ss2 - 1) * (sd2 ** 2)) / (ss1 + ss2 - 2)) * sqrt(1 / ss1 + 1 / ss2)
   t_stat <- point_est / sd_diff
@@ -25,6 +35,18 @@ pair_abs_diff_summary_normal <- function(mean1, mean2, sd1, sd2, ss1, ss2, sig){
 }
 
 pair_rel_diff_summary_normal <- function(mean1, mean2, sd1, sd2, ss1, ss2, sig){
+
+  # Initialise local variables
+  point_est <- NULL
+  se1 <- NULL
+  se2 <- NULL
+  sd_rat <- NULL
+  t_stat <- NULL
+  p_value <- NULL
+  signif <- NULL
+  LCI <- NULL
+  UCI <- NULL
+
 
   # Calculate the point estimate of the relative effect
   point_est <- (mean2 - mean1) / mean1
@@ -44,6 +66,9 @@ pair_rel_diff_summary_normal <- function(mean1, mean2, sd1, sd2, ss1, ss2, sig){
 
 construct_text_row_normal <- function(name1, name2, mean1, mean2, sd1, sd2, ss1, ss2, sig, eff_type){
 
+  # Initialise local variables
+  sig_test <- NULL
+
   if(eff_type == 'abs'){
     sig_test <- pair_abs_diff_summary_normal(mean1, mean2, sd1, sd2, ss1, ss2, sig)
     return(paste0('The difference between ', name1, ' and ', name2, ' is ',
@@ -61,6 +86,12 @@ construct_text_row_normal <- function(name1, name2, mean1, mean2, sd1, sd2, ss1,
 
 
 construct_text_normal <- function(summ_table, eff_type, comparisons, sig){
+
+  # Initialise local variables
+  num_groups <- NULL
+  working_string <- NULL
+  new_string <- NULL
+
   num_groups <- nrow(summ_table)
   working_string <- ''
   if(comparisons == 'first'){
@@ -100,6 +131,12 @@ construct_text_normal <- function(summ_table, eff_type, comparisons, sig){
 
 
 construct_diff_plot_normal <- function(summ_table, eff_type, comparisons, sig, correction){
+
+  # Initialise local variables
+  num_groups <- NULL
+  working_frame <- NULL
+  title_text <- NULL
+  base_plot <- NULL
 
   num_groups <- nrow(summ_table)
   working_frame <- tibble(name1 = character(), name2 = character(),
@@ -196,6 +233,11 @@ construct_diff_plot_normal <- function(summ_table, eff_type, comparisons, sig, c
 }
 
 construct_group_plot_normal <- function(summ_table, eff_type, sig, correction){
+
+  # Initialise local variables
+  summ_table <- NULL
+  title_text <- NULL
+  base_plot <- NULL
 
   summ_table <- summ_table %>%
     rowwise() %>%

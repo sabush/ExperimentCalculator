@@ -27,7 +27,7 @@ You can install the development version of ExperimentCalculator like so:
 ``` r
 devtools::install_github('sabush/ExperimentCalculator')
 #> Using GitHub PAT from the git credential store.
-#> Skipping install of 'ExperimentCalculator' from a github remote, the SHA1 (031c19f8) has not changed since last install.
+#> Skipping install of 'ExperimentCalculator' from a github remote, the SHA1 (7e561847) has not changed since last install.
 #>   Use `force = TRUE` to force installation
 ```
 

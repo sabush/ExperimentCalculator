@@ -14,6 +14,20 @@
 
 
 pair_abs_diff_summary_binary <- function(x1, x2, ss1, ss2, sig){
+
+  # Initialise local variables
+  prop1 <- NULL
+  prop2 <- NULL
+  se1 <- NULL
+  se2 <- NULL
+  point_est <- NULL
+  sd_diff <- NULL
+  t_stat <- NULL
+  p_value <- NULL
+  signif <- NULL
+  LCI <- NULL
+  UCI <- NULL
+
   prop1 <- x1 / ss1
   prop2 <- x2 / ss2
   se1 <- sqrt(prop1 * (1 - prop1) / ss1)
@@ -29,6 +43,19 @@ pair_abs_diff_summary_binary <- function(x1, x2, ss1, ss2, sig){
 }
 
 pair_rel_diff_summary_binary <- function(x1, x2, ss1, ss2, sig){
+
+  # Initialise local variables
+  prop1 <- NULL
+  prop2 <- NULL
+  se1 <- NULL
+  se2 <- NULL
+  point_est <- NULL
+  sd_rat <- NULL
+  t_stat <- NULL
+  p_value <- NULL
+  signif <- NULL
+  LCI <- NULL
+  UCI <- NULL
 
   prop1 <- x1 / ss1
   prop2 <- x2 / ss2
@@ -51,6 +78,9 @@ pair_rel_diff_summary_binary <- function(x1, x2, ss1, ss2, sig){
 
 construct_text_row_binary <- function(name1, name2, x1, x2, ss1, ss2, sig, eff_type){
 
+  # Initialise local variables
+  sig_test <- NULL
+
   if(eff_type == 'abs'){
     sig_test <- pair_abs_diff_summary_binary(x1, x2, ss1, ss2, sig)
     return(paste0('The difference between ', name1, ' and ', name2, ' is ',
@@ -68,6 +98,12 @@ construct_text_row_binary <- function(name1, name2, x1, x2, ss1, ss2, sig, eff_t
 
 
 construct_text_binary <- function(summ_table, eff_type, comparisons, sig){
+
+  # Initialise local variables
+  num_groups <- NULL
+  working_string <- NULL
+  new_string <- NULL
+
   num_groups <- nrow(summ_table)
   working_string <- ''
   if(comparisons == 'first'){
@@ -103,6 +139,12 @@ construct_text_binary <- function(summ_table, eff_type, comparisons, sig){
 
 
 construct_diff_plot_binary <- function(summ_table, eff_type, comparisons, sig, correction){
+
+  # Initialise local variables
+  num_groups <- NULL
+  working_frame <- NULL
+  title_text <- NULL
+  base_plot <- NULL
 
   num_groups <- nrow(summ_table)
   working_frame <- tibble(name1 = character(), name2 = character(),
@@ -195,6 +237,11 @@ construct_diff_plot_binary <- function(summ_table, eff_type, comparisons, sig, c
 }
 
 construct_group_plot_binary <- function(summ_table, eff_type, sig, correction){
+
+  # Initialise local variables
+  summ_table <- NULL
+  title_text <- NULL
+  base_plot <- NULL
 
   summ_table <- summ_table %>%
     rowwise() %>%

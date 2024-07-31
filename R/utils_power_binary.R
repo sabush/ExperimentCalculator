@@ -26,6 +26,8 @@
 # Function to find the difference between observed and target power
 
 power_diff_bin <- function(tot_ss, split, prop1, prop2, sig, pow_tgt){
+  # Initialise local variables
+  h_val <- NULL
   h_val <- pwr::ES.h(prop1, prop2) # Calculate the standardised effect size for two proportions
   return(pwr::pwr.2p2n.test(h_val, tot_ss * split, tot_ss * (1 - split), sig)$power - pow_tgt)
 }
@@ -33,6 +35,13 @@ power_diff_bin <- function(tot_ss, split, prop1, prop2, sig, pow_tgt){
 # Solve power problem for unknown sample size
 
 solve_power_bin_n <- function(samp_prop, base_resp, mde, eff_type, sig, pow){
+  # Initialise local variables
+  prop1 <- NULL
+  prop2 <- NULL
+  range_min <- NULL
+  range_max <- NULL
+  root <- NULL
+
   # Calculate the second proportion
   if(eff_type == 'abs'){
     prop1 <- base_resp
@@ -59,7 +68,7 @@ solve_power_bin_n <- function(samp_prop, base_resp, mde, eff_type, sig, pow){
   }
 
   # Apply solver
-  root <- uniroot(f = power_diff_bin,
+  root <- stats::uniroot(f = power_diff_bin,
                   interval = c(range_min, range_max),
                   split = samp_prop,
                   prop1 = prop1,
@@ -77,13 +86,21 @@ es_diff_bin <- function(p2, es, p1){
 }
 
 solve_prop_bin <- function(es, p1){
+  # Initialise local variables
+  prop2 <- NULL
+
   prop2 <- uniroot(f = es_diff_bin,
                    interval = c(0, 1),
                    es = es,
                    p1 = p1)$root
+  return(prop2)
 }
 
 solve_power_bin_mde <- function(samp_prop, base_resp, tot_ss, eff_type, sig, pow){
+
+  # Initialise local variables
+  eff_size <- NULL
+  prop2 <- NULL
 
   # Solve the power calculation for an effect size
   eff_size <- pwr::pwr.2p2n.test(h = NULL, tot_ss * samp_prop, tot_ss * (1 - samp_prop), sig, power = pow)$h
@@ -103,6 +120,16 @@ solve_power_bin_mde <- function(samp_prop, base_resp, tot_ss, eff_type, sig, pow
 
 ##### Solvers for a specific comparisons #####
 solve_power_helper_bin_ss <- function(base_resp, samp_prop, mde, eff_type, sig, pow, comparison){
+
+  # Initialise local variables
+  split_string <- NULL
+  group_1 <- NULL
+  group_2 <- NULL
+  samp_frac <- NULL
+  samp_prop_pair <- NULL
+  pair_ss <- NULL
+  tot_ss <- NULL
+
   # Extract the requested comparison
   split_string <- str_split(comparison, " v ")
   group_1 <- as.numeric(split_string[[1]][1])
@@ -126,6 +153,15 @@ solve_power_helper_bin_ss <- function(base_resp, samp_prop, mde, eff_type, sig, 
 
 
 solve_power_helper_bin_mde <- function(base_resp, samp_prop, tot_ss, eff_type, sig, pow, comparison){
+
+  # Initialise local variables
+  split_string <- NULL
+  group_1 <- NULL
+  group_2 <- NULL
+  samp_frac <- NULL
+  samp_prop_pair <- NULL
+  pair_mde <- NULL
+
   # Extract the requested comparison
   split_string <- str_split(comparison, " v ")
   group_1 <- as.numeric(split_string[[1]][1])
@@ -148,6 +184,13 @@ solve_power_helper_bin_mde <- function(base_resp, samp_prop, tot_ss, eff_type, s
 ##### Solvers for all comparisons #####
 
 solve_power_all_pair_bin_ss <- function(base_resp, samp_prop, mde, eff_type, sig, pow, pairs){
+
+  # Initialise local variables
+  ss_list <- NULL
+  new_string <- NULL
+  pair_ss <- NULL
+  ss_list <- NULL
+
   ss_list <- c()
   if(pairs == 'first'){
     for(tmt2 in 2:(length(samp_prop))){
@@ -182,6 +225,13 @@ solve_power_all_pair_bin_ss <- function(base_resp, samp_prop, mde, eff_type, sig
 }
 
 solve_power_all_pair_bin_mde <- function(base_resp, samp_prop, tot_ss, eff_type, sig, pow, pairs){
+
+  # Initialise local variables
+  mde_list <- NULL
+  new_string <- NULL
+  pair_mde <- NULL
+  mde_list <- NULL
+
   mde_list <- c()
   if(pairs == 'first'){
     for(tmt2 in 2:(length(samp_prop))){
@@ -220,6 +270,10 @@ solve_power_all_pair_bin_mde <- function(base_resp, samp_prop, tot_ss, eff_type,
 construct_text_pow_prop_ss <-
   function(base_resp, samp_prop, mde, eff_type, sig, pow, pairs){
 
+    # Initialise local variables
+    req_ss <- NULL
+    string_ret <- NULL
+
     req_ss <-
       solve_power_all_pair_bin_ss(base_resp, samp_prop, mde, eff_type, sig, pow, pairs)
 
@@ -236,6 +290,11 @@ construct_text_pow_prop_ss <-
 
 construct_text_pow_prop_mde <-
   function(base_resp, samp_prop, tot_ss, eff_type, sig, pow, pairs){
+
+    # Initialise local variables
+    mde_calc <- NULL
+    string_ret <- NULL
+
     mde_calc <-
       solve_power_all_pair_bin_mde(base_resp, samp_prop, tot_ss, eff_type, sig, pow, pairs)
     string_ret <-
@@ -252,6 +311,21 @@ construct_text_pow_prop_mde <-
 
 construct_power_curve_bin_ss <-
   function(base_resp, samp_prop, mde, eff_type, sig, pow, comp){
+
+    # Initialise local variables
+    prop1 <- NULL
+    prop2 <- NULL
+    title_txt <- NULL
+    split_string <- NULL
+    group_1 <- NULL
+    group_2 <- NULL
+    samp_frac <- NULL
+    samp_prop_pair <- NULL
+    range_min <- NULL
+    range_max <- NULL
+    calc_val <- NULL
+    power_table <- NULL
+    plot <- NULL
 
     if(eff_type == 'abs'){
       prop1 <- base_resp
@@ -304,6 +378,20 @@ construct_power_curve_bin_ss <-
 
 construct_power_curve_bin_mde <-
   function(base_resp, samp_prop, tot_ss, eff_type, sig, pow, comp){
+
+    # Initialise local variables
+    title_txt <- NULL
+    x_txt <- NULL
+    split_string <- NULL
+    group_1 <- NULL
+    group_2 <- NULL
+    samp_frac <- NULL
+    samp_prop_pair <- NULL
+    range_min <- NULL
+    range_max <- NULL
+    calc_val <- NULL
+    power_table <- NULL
+    plot <- NULL
 
     # Extract the requested comparison
     split_string <- str_split(comp, " v ")

@@ -5,12 +5,12 @@
 #' @return The return value, if any, from executing the utility.
 #'
 #' @noRd
-#' @export pair_abs_diff_summary_binary
-#' @export pair_rel_diff_summary_binary
-#' @export construct_text_row_binary
-#' @export construct_text_binary
-#' @export construct_diff_plot_binary
-#' @export construct_group_plot_binary
+# @export pair_abs_diff_summary_binary
+# @export pair_rel_diff_summary_binary
+# @export construct_text_row_binary
+# @export construct_text_binary
+# @export construct_diff_plot_binary
+# @export construct_group_plot_binary
 
 
 pair_abs_diff_summary_binary <- function(x1, x2, ss1, ss2, sig){
@@ -205,18 +205,18 @@ construct_diff_plot_binary <- function(summ_table, eff_type, comparisons, sig, c
              label = factor(label))
 
     base_plot <- working_frame %>%
-      ggplot2::ggplot(ggplot2::aes(x = label, y = diff, colour = forcats::fct_rev(label))) +
-      ggplot2::geom_crossbar(aes(ymin = LCI, ymax = UCI), width = 0.1, fill = 'grey', colour = 'grey') +
-      ggplot2::geom_point(size = 10) +
-      ggplot2::geom_hline(ggplot2::aes(yintercept = 0), colour = 'red') +
-      ggplot2::scale_x_discrete(labels = scales::label_wrap(15), guide = guide_axis(n.dodge = 2)) +
-      ggplot2::scale_y_continuous(labels = scales::percent) +
-      ggplot2::scale_colour_manual(values = colour_vec) +
-      ggplot2::theme_classic(base_size = 14) +
-      ggplot2::theme(axis.text.y = element_text(angle = 90, vjust = 0.5, hjust=0),
+      ggplot(aes(x = label, y = diff, colour = fct_rev(label))) +
+      geom_crossbar(aes(ymin = LCI, ymax = UCI), width = 0.1, fill = 'grey', colour = 'grey') +
+      geom_point(size = 10) +
+      geom_hline(aes(yintercept = 0), colour = 'red') +
+      scale_x_discrete(labels = scales::label_wrap(15), guide = guide_axis(n.dodge = 2)) +
+      scale_y_continuous(labels = scales::percent) +
+      scale_colour_manual(values = colour_vec) +
+      theme_classic(base_size = 14) +
+      theme(axis.text.y = element_text(angle = 90, vjust = 0.5, hjust=0),
             legend.position = "none") +
-      ggplot2::coord_flip() +
-      ggplot2::labs(title = title_text,
+      coord_flip() +
+      labs(title = title_text,
            x = "", y = 'Absolute Difference in Response Rate')
   } else {
     working_frame <- working_frame %>%
@@ -242,7 +242,7 @@ construct_diff_plot_binary <- function(summ_table, eff_type, comparisons, sig, c
       labs(title = title_text,
            x = "", y = 'Relative Difference in Response Rate')
   }
-  return(ggplotly(base_plot))
+  return(plotly::ggplotly(base_plot))
 
 }
 
@@ -252,6 +252,12 @@ construct_group_plot_binary <- function(summ_table, eff_type, sig, correction){
   summ_table <- NULL
   title_text <- NULL
   base_plot <- NULL
+  prop <- NULL
+  label <- NULL
+  LCI <- NULL
+  UCI <- NULL
+  num_success <- NULL
+  sample_size <- NULL
 
   summ_table <- summ_table %>%
     rowwise() %>%
@@ -283,5 +289,5 @@ construct_group_plot_binary <- function(summ_table, eff_type, sig, correction){
     labs(title = title_text,
          x = "", y = 'Response rate')
 
-  return(ggplotly(base_plot))
+  return(plotly::ggplotly(base_plot))
 }

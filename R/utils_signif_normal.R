@@ -5,12 +5,12 @@
 #' @return The return value, if any, from executing the utility.
 #'
 #' @noRd
-#' @export pair_abs_diff_summary_normal
-#' @export pair_rel_diff_summary_normal
-#' @export construct_text_row_normal
-#' @export construct_text_normal
-#' @export construct_diff_plot_normal
-#' @export construct_group_plot_normal
+# @export pair_abs_diff_summary_normal
+# @export pair_rel_diff_summary_normal
+# @export construct_text_row_normal
+# @export construct_text_normal
+# @export construct_diff_plot_normal
+# @export construct_group_plot_normal
 
 
 pair_abs_diff_summary_normal <- function(mean1, mean2, sd1, sd2, ss1, ss2, sig){
@@ -137,6 +137,18 @@ construct_diff_plot_normal <- function(summ_table, eff_type, comparisons, sig, c
   working_frame <- NULL
   title_text <- NULL
   base_plot <- NULL
+  name1 <- NULL
+  name2 <- NULL
+  mean1 <- NULL
+  mean2 <- NULL
+  sd1 <- NULL
+  sd2 <- NULL
+  ss1 <- NULL
+  ss2 <- NULL
+  label <- NULL
+  mean <- NULL
+  LCI <- NULL
+  UCI <- NULL
 
   num_groups <- nrow(summ_table)
   working_frame <- tibble(name1 = character(), name2 = character(),
@@ -228,7 +240,7 @@ construct_diff_plot_normal <- function(summ_table, eff_type, comparisons, sig, c
       labs(title = title_text,
            x = "", y = 'Relative Difference in Outcome')
   }
-  return(ggplotly(base_plot))
+  return(plotly::ggplotly(base_plot))
 
 }
 
@@ -238,6 +250,12 @@ construct_group_plot_normal <- function(summ_table, eff_type, sig, correction){
   summ_table <- NULL
   title_text <- NULL
   base_plot <- NULL
+  label <- NULL
+  LCI <- NULL
+  UCI <- NULL
+  sample_size <- NULL
+  mean <- NULL
+  st_dev <- NULL
 
   summ_table <- summ_table %>%
     rowwise() %>%
@@ -267,5 +285,5 @@ construct_group_plot_normal <- function(summ_table, eff_type, sig, correction){
     labs(title = title_text,
          x = "", y = 'Mean Outcome')
 
-  return(ggplotly(base_plot))
+  return(plotly::ggplotly(base_plot))
 }

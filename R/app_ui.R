@@ -10,14 +10,14 @@
 #' @import fresh
 #' @import pwr
 #' @import scales
-#' @import plotly
+#' @importFrom plotly plotlyOutput renderPlotly ggplotly
 #' @import ggplot2
 #' @import stringr
 #' @import forcats
 #' @importFrom stats chisq.test pnorm power qnorm qt sd uniroot
 #' @noRd
 
-library(plotly)
+# library(plotly)
 library(shiny)
 library(shinyBS)
 library(shinyWidgets)

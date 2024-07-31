@@ -5,17 +5,17 @@
 #' @return The return value, if any, from executing the utility.
 #'
 #' @noRd
-#' @export power_diff_norm
-#' @export solve_power_norm_n
-#' @export solve_power_norm_mde
-#' @export solve_power_helper_norm_ss
-#' @export solve_power_helper_norm_mde
-#' @export solve_power_all_pair_norm_ss
-#' @export solve_power_all_pair_norm_mde
-#' @export construct_text_pow_norm_ss
-#' @export construct_text_pow_norm_mde
-#' @export construct_power_curve_norm_ss
-#' @export construct_power_curve_norm_mde
+# @export power_diff_norm
+# @export solve_power_norm_n
+# @export solve_power_norm_mde
+# @export solve_power_helper_norm_ss
+# @export solve_power_helper_norm_mde
+# @export solve_power_all_pair_norm_ss
+# @export solve_power_all_pair_norm_mde
+# @export construct_text_pow_norm_ss
+# @export construct_text_pow_norm_mde
+# @export construct_power_curve_norm_ss
+# @export construct_power_curve_norm_mde
 
 #### Functions to perform calculations for binary power calculations ####
 
@@ -324,7 +324,9 @@ construct_power_curve_norm_ss <-
     range_max <- NULL
     calc_val <- NULL
     power_table <- NULL
-    plot <- NULL
+    x <- NULL
+    samp_prop1 <- NULL
+    samp_prop2 <- NULL
 
     if(eff_type == 'abs'){
       mean1 <- base_mean
@@ -370,7 +372,7 @@ construct_power_curve_norm_ss <-
       scale_x_continuous(labels = scales::comma) +
       labs(title = title_txt, x = 'Total Sample Size (All Groups)', y = 'Power')
 
-    return(ggplotly(plot))
+    return(plotly::ggplotly(plot))
 
   }
 
@@ -390,6 +392,11 @@ construct_power_curve_norm_mde <-
     power_table <- NULL
     plot <- NULL
     x_txt <- NULL
+    mean1 <- NULL
+    mean2 <- NULL
+    ss_prop1 <- NULL
+    ss_prop2 <- NULL
+    x <- NULL
 
     # Extract the requested comparison
     split_string <- str_split(comp, " v ")
@@ -439,5 +446,5 @@ construct_power_curve_norm_mde <-
     }
 
 
-    return(ggplotly(plot))
+    return(plotly::ggplotly(plot))
   }

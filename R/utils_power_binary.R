@@ -5,19 +5,19 @@
 #' @return The return value, if any, from executing the utility.
 #'
 #' @noRd
-#' @export power_diff_bin
-#' @export solve_power_bin_n
-#' @export es_diff_bin
-#' @export solve_prop_bin
-#' @export solve_power_bin_mde
-#' @export solve_power_helper_bin_ss
-#' @export solve_power_helper_bin_mde
-#' @export solve_power_all_pair_bin_ss
-#' @export solve_power_all_pair_bin_mde
-#' @export construct_text_pow_prop_ss
-#' @export construct_text_pow_prop_mde
-#' @export construct_power_curve_bin_ss
-#' @export construct_power_curve_bin_mde
+# @export power_diff_bin
+# @export solve_power_bin_n
+# @export es_diff_bin
+# @export solve_prop_bin
+# @export solve_power_bin_mde
+# @export solve_power_helper_bin_ss
+# @export solve_power_helper_bin_mde
+# @export solve_power_all_pair_bin_ss
+# @export solve_power_all_pair_bin_mde
+# @export construct_text_pow_prop_ss
+# @export construct_text_pow_prop_mde
+# @export construct_power_curve_bin_ss
+# @export construct_power_curve_bin_mde
 
 #### Functions to perform calculations for binary power calculations ####
 
@@ -325,7 +325,9 @@ construct_power_curve_bin_ss <-
     range_max <- NULL
     calc_val <- NULL
     power_table <- NULL
-    plot <- NULL
+    x <- NULL
+    samp_prop1 <- NULL
+    samp_prop2 <- NULL
 
     if(eff_type == 'abs'){
       prop1 <- base_resp
@@ -372,7 +374,7 @@ construct_power_curve_bin_ss <-
       scale_x_continuous(labels = scales::comma) +
       labs(title = title_txt, x = 'Total Sample Size (All Groups)', y = 'Power')
 
-    return(ggplotly(plot))
+    return(plotly::ggplotly(plot))
 
   }
 
@@ -392,6 +394,12 @@ construct_power_curve_bin_mde <-
     calc_val <- NULL
     power_table <- NULL
     plot <- NULL
+    ss_prop1 <- NULL
+    ss_prop2 <- NULL
+    prop1 <- NULL
+    prop2 <- NULL
+    esh <- NULL
+    x <- NULL
 
     # Extract the requested comparison
     split_string <- str_split(comp, " v ")
@@ -427,11 +435,9 @@ construct_power_curve_bin_mde <-
       ggplot(aes(x = x, y = power)) + geom_line(colour = colour_vec[1]) +
       annotate("segment", x = calc_val, xend = calc_val, y = 0, yend = pow, colour = colour_vec[2]) +
       annotate("segment", x = 0, xend = calc_val, y = pow, yend = pow, colour = colour_vec[2]) +
-      # geom_segment(aes(x = calc_val, xend = calc_val, y = 0, yend = pow), colour = colour_vec[2]) +
-      # geom_segment(aes(x = 0, xend = calc_val, y = pow, yend = pow), colour = colour_vec[2]) +
       theme_classic(base_size = 14) + scale_y_continuous(labels = scales::percent) +
       scale_x_continuous(labels = scales::percent) +
       labs(title = "Power Plot", x = x_txt, y = 'Power')
 
-    return(ggplotly(plot))
+    return(plotly::ggplotly(plot))
   }

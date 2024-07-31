@@ -1,11 +1,8 @@
 Package: ExperimentCalculator
 Title: Power, Significance, and Sample Ratio Calculator
-Version: 0.0.0.9000
-Authors@R: 
-    person("Stephen", "Bush", , "stephenbush1@gmail.com", role = c("cre", "aut"))
-Description: A shiny app to perform power canculations, summarise
-    experiment results, and perform sample ratio checks for randomised
-    experiments.
+Version: 0.0.0.9500
+Authors@R: person('Stephen', 'Bush', email = 'stephenbush1@gmail.com', role = c('cre', 'aut'))
+Description: A shiny app to perform power canculations, summarise experiment results, and perform sample ratio checks for randomised experiments.
 License: MIT + file LICENSE
 Imports: 
     config (>= 0.3.2),

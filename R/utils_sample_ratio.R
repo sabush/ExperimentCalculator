@@ -5,7 +5,7 @@
 #' @return The return value, if any, from executing the utility.
 #'
 #' @noRd
-#' @export create_srm_text
+# @export create_srm_text
 
 
 create_srm_text <- function(count_table, threshold){

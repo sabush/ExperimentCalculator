@@ -334,7 +334,7 @@ construct_power_curve_norm_ss <-
     if(eff_type == 'abs'){
       mean1 <- base_mean
       mean2 <- base_mean + mde
-      title_txt <- paste0('Power Plot for a ', signif(mde * 100, 2), '% absolute increase in response rate')
+      title_txt <- paste0('Power Plot for a ', mde, ' unit increase in response rate')
     } else if(eff_type == 'rel'){
       mean1 <- base_mean
       mean2 <- base_mean * (1 + mde)

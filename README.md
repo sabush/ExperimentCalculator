@@ -27,8 +27,12 @@ You can install the development version of ExperimentCalculator like so:
 ``` r
 devtools::install_github('sabush/ExperimentCalculator')
 #> Using GitHub PAT from the git credential store.
-#> Skipping install of 'ExperimentCalculator' from a github remote, the SHA1 (e5af4f95) has not changed since last install.
-#>   Use `force = TRUE` to force installation
+#> Downloading GitHub repo sabush/ExperimentCalculator@HEAD
+#> Installing 3 packages: colorspace, bslib, yaml
+#> Installing packages into 'C:/Users/steph/AppData/Local/R/cache/R/renv/library/ExperimentCalculator-50fb6c6f/R-4.2/x86_64-w64-mingw32'
+#> (as 'lib' is unspecified)
+#> Installing package into 'C:/Users/steph/AppData/Local/R/cache/R/renv/library/ExperimentCalculator-50fb6c6f/R-4.2/x86_64-w64-mingw32'
+#> (as 'lib' is unspecified)
 ```
 
 ## Load the Calculator
@@ -38,8 +42,6 @@ the app
 
 ``` r
 library(ExperimentCalculator)
-#> Warning: replacing previous import 'ggplot2::last_plot' by 'plotly::last_plot'
-#> when loading 'ExperimentCalculator'
 #ExperimentCalculator::run_app() # Uncomment to run the app
 ```
 

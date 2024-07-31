@@ -247,7 +247,6 @@ construct_diff_plot_normal <- function(summ_table, eff_type, comparisons, sig, c
 construct_group_plot_normal <- function(summ_table, eff_type, sig, correction){
 
   # Initialise local variables
-  summ_table <- NULL
   title_text <- NULL
   base_plot <- NULL
   label <- NULL

@@ -121,7 +121,7 @@ mod_power_binary_server <- function(id){
 
       if(!is.null(split_DF)){
         rhandsontable(split_DF, width = 300) %>%
-          hot_validate_numeric(col = 'traffic_propotions',
+          hot_validate_numeric(cols = 'traffic_propotions',
                                min = 0, max = 1) %>%
           hot_col('traffic_propotions', format = "0.0%") %>%
           hot_context_menu(allowColEdit = FALSE)

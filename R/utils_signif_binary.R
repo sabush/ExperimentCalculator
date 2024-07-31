@@ -145,9 +145,19 @@ construct_diff_plot_binary <- function(summ_table, eff_type, comparisons, sig, c
   working_frame <- NULL
   title_text <- NULL
   base_plot <- NULL
+  name1 <- NULL
+  name2 <- NULL
+  x1 <- NULL
+  x2 <- NULL
+  ss1 <- NULL
+  ss2 <- NULL
+  label <- NULL
+  diff <- NULL
+  LCI <- NULL
+  UCI <- NULL
 
   num_groups <- nrow(summ_table)
-  working_frame <- tibble(name1 = character(), name2 = character(),
+  working_frame <- tibble::tibble(name1 = character(), name2 = character(),
                           x1 = numeric(), x2 = numeric(),
                           ss1 = numeric(), ss2 = numeric())
   if(comparisons == 'first'){
@@ -195,18 +205,18 @@ construct_diff_plot_binary <- function(summ_table, eff_type, comparisons, sig, c
              label = factor(label))
 
     base_plot <- working_frame %>%
-      ggplot(aes(x = label, y = diff, colour = fct_rev(label))) +
-      geom_crossbar(aes(ymin = LCI, ymax = UCI), width = 0.1, fill = 'grey', colour = 'grey') +
-      geom_point(size = 10) +
-      geom_hline(aes(yintercept = 0), colour = 'red') +
-      scale_x_discrete(labels = scales::label_wrap(15), guide = guide_axis(n.dodge = 2)) +
-      scale_y_continuous(labels = scales::percent) +
-      scale_colour_manual(values = colour_vec) +
-      theme_classic(base_size = 14) +
-      theme(axis.text.y = element_text(angle = 90, vjust = 0.5, hjust=0),
+      ggplot2::ggplot(ggplot2::aes(x = label, y = diff, colour = fct_rev(label))) +
+      ggplot2::geom_crossbar(aes(ymin = LCI, ymax = UCI), width = 0.1, fill = 'grey', colour = 'grey') +
+      ggplot2::geom_point(size = 10) +
+      ggplot2::geom_hline(ggplot2::aes(yintercept = 0), colour = 'red') +
+      ggplot2::scale_x_discrete(labels = scales::label_wrap(15), guide = guide_axis(n.dodge = 2)) +
+      ggplot2::scale_y_continuous(labels = scales::percent) +
+      ggplot2::scale_colour_manual(values = colour_vec) +
+      ggplot2::theme_classic(base_size = 14) +
+      ggplot2::theme(axis.text.y = element_text(angle = 90, vjust = 0.5, hjust=0),
             legend.position = "none") +
-      coord_flip() +
-      labs(title = title_text,
+      ggplot2::coord_flip() +
+      ggplot2::labs(title = title_text,
            x = "", y = 'Absolute Difference in Response Rate')
   } else {
     working_frame <- working_frame %>%

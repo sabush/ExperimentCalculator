@@ -11,6 +11,7 @@
 #' @import pwr
 #' @import scales
 #' @import plotly
+#' @import ggplot2
 #' @noRd
 
 library(plotly)

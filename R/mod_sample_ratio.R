@@ -74,8 +74,8 @@ mod_sample_ratio_server <- function(id){
 
       if(!is.null(srm_DF)){
         rhandsontable(srm_DF, width = 300) %>%
-          hot_validate_numeric(col = 'sample_size', min = 1) %>%
-          hot_validate_numeric(col = 'expected_proportion', min = 0, max = 1) %>%
+          hot_validate_numeric(cols = 'sample_size', min = 1) %>%
+          hot_validate_numeric(cols = 'expected_proportion', min = 0, max = 1) %>%
           hot_col('sample_size', format = "0") %>%
           hot_col('expected_proportion', format = "0.0000") %>%
           hot_context_menu(allowColEdit = FALSE)

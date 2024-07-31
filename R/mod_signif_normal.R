@@ -95,8 +95,8 @@ mod_signif_normal_server <- function(id){
 
       if(!is.null(summ_DF)){
         rhandsontable(summ_DF, width = 400) %>%
-          hot_validate_numeric(col = 'sample_size', min = 1) %>%
-          hot_validate_numeric(col = 'st_dev', min = 0) %>%
+          hot_validate_numeric(cols = 'sample_size', min = 1) %>%
+          hot_validate_numeric(cols = 'st_dev', min = 0) %>%
           hot_col('sample_size', format = "0") %>%
           hot_context_menu(allowColEdit = FALSE)
       }

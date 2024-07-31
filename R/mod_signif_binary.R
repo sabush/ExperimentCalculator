@@ -94,8 +94,8 @@ mod_signif_binary_server <- function(id){
 
       if(!is.null(summ_DF)){
         rhandsontable(summ_DF, width = 400) %>%
-          hot_validate_numeric(col = 'sample_size', min = 1) %>%
-          hot_validate_numeric(col = 'num_success', min = 1) %>%
+          hot_validate_numeric(cols = 'sample_size', min = 1) %>%
+          hot_validate_numeric(cols = 'num_success', min = 1) %>%
           hot_col('sample_size', format = "0") %>%
           hot_col('num_success', format = "0") %>%
           hot_context_menu(allowColEdit = FALSE)

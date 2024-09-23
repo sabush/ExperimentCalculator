@@ -47,6 +47,31 @@ library(ExperimentCalculator)
 
 Further usage of the app can be found in the vignettes.
 
+## Dashboard View
+
+![image](https://github.com/user-attachments/assets/627a656c-6007-4713-8734-a9dfdf0d57c0)
+
+1. **Sample Size**: Calculates how many participants are needed to detect the effect.
+
+2. **Baseline Success Rate**: Current conversion rate for the control group (e.g., 20%).
+
+3. **Sample Split**: Percentage of traffic assigned to each group (e.g., 50/50).
+
+4. **Effect Type — Absolute/Relative Effect**: Detects a specific increase (e.g., 5%).
+
+5. **Minimum Detectable Effect**: Smallest effect size the test aims to detect (e.g., 5%).
+
+6. **Significance Level**: Risk of false positives (e.g., 5%).
+
+7. **Power Level**: Likelihood of detecting a true effect (e.g., 80%).
+
+8. **Comparison Type**: Groups compared to the control.
+
+9. **Correction**: Bonferroni adjustment to prevent false positives.
+
+10. **Power Plot**: Visualizes the sample size needed (e.g., 2184 participants).
+
+
 ## Code of Conduct
 
 Please note that the ExperimentCalculator project is released with a

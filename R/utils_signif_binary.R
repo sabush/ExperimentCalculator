@@ -90,7 +90,7 @@ construct_text_row_binary <- function(name1, name2, x1, x2, ss1, ss2, sig, eff_t
   } else {
     sig_test <- pair_rel_diff_summary_binary(x1, x2, ss1, ss2, sig)
     return(paste0('The relative difference between ', name1, ' and ', name2, ' is ',
-                  sig_test$signif, ', with a mean realtive difference of ', signif(sig_test$point_est * 100, 3),
+                  sig_test$signif, ', with a mean relative difference of ', signif(sig_test$point_est * 100, 3),
                   '%, and confidence interval: (', signif(sig_test$LCI * 100, 3), '%, ',
                   signif(sig_test$UCI * 100, 3), '%)'))
   }

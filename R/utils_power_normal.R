@@ -301,18 +301,24 @@ construct_text_pow_norm_mde <-
       solve_power_all_pair_norm_mde(base_mean, base_sd, samp_prop, tot_ss, eff_type, sig, pow, pairs)
 
     if(eff_type == 'abs'){
-      formatted_mde_calc = mde_calc
+      formatted_mde_calc <- mde_calc
+      string_ret <-
+        HTML(paste0('With a total sample size of ', tot_ss,
+                    ', distributed across the treatments (in the given proportions), your will be able to estimate a ',
+                    signif(formatted_mde_calc, 3), 'unit increase in the outcome with ',
+                    pow * 100, '% power and ', signif(sig * 100, 2), '% significance.'
+        ))
+
     } else {
-      formatted_mde_calc = mde_calc * 100
+      formatted_mde_calc <- mde_calc * 100
+      string_ret <-
+        HTML(paste0('With a total sample size of ', tot_ss,
+                    ', distributed across the treatments (in the given proportions), your will be able to estimate a ',
+                    signif(formatted_mde_calc, 3), '% increase in the outcome with ',
+                    pow * 100, '% power and ', signif(sig * 100, 2), '% significance.'
+        ))
     }
-    
-    string_ret <-
-      HTML(paste0('With a total sample size of ', tot_ss,
-                  ', distributed across the treatments (in the given proportions), your will be able to estimate a ',
-                  signif(formatted_mde_calc, 3), '% increase in the outcome with ',
-                  pow * 100, '% power and ', signif(sig * 100, 2), '% significance.'
-      ))
-      
+
     return(string_ret)
   }
 

@@ -305,7 +305,7 @@ construct_text_pow_norm_mde <-
       string_ret <-
         HTML(paste0('With a total sample size of ', tot_ss,
                     ', distributed across the treatments (in the given proportions), your will be able to estimate a ',
-                    signif(formatted_mde_calc, 3), 'unit increase in the outcome with ',
+                    signif(formatted_mde_calc, 3), ' unit increase in the outcome with ',
                     pow * 100, '% power and ', signif(sig * 100, 2), '% significance.'
         ))
 
